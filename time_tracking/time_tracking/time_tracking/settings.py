@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'time_app.apps.TimeAppConfig',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_auth',
     'crispy_forms',
 ]
 
@@ -51,7 +50,7 @@ REST_FRAMEWORK = {
 }
 
 
-SESSION_COOKIE_AGE = 3000
+SESSION_COOKIE_AGE = 4000
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

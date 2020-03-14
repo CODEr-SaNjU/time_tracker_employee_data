@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class DateInput(forms.DateInput):
     input_type = 'date'
-    input_type = 'time'
+    # input_type = 'time'
 
 class UserDataForm(forms.ModelForm):
     class Meta:
@@ -12,8 +12,8 @@ class UserDataForm(forms.ModelForm):
         fields = ['department','location','projectEnq','enq_no','name_of_project','activity','submit_data','start_time','end_time']
         widgets = {
              'submit_data':DateInput(attrs={'type': 'date'}),
-             'start_time':DateInput(attrs={'class':'timepicker'}),
-             'end_time':DateInput(attrs={'class':'timepicker'})
+            #  'start_time':DateInput(attrs={'class':'timepicker'}),
+            #  'end_time':DateInput(attrs={'class':'timepicker'})
         }
        
 

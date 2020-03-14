@@ -43,8 +43,8 @@ def logout(request):
 
 @login_required(login_url='login')
 def home(request):
-    userdata = UserData.objects.filter(username=request.user,submit_data__lte=datetime.datetime.today(),submit_data__gt=datetime.datetime.today()-datetime.timedelta(days=15)).order_by('-submit_data')
-    return render(request,'html_files/Home.htm',{'userdata':userdata})
+    return render(request,'html_files/Main.htm')
+
 
 @unauthenticated_user
 def register(request):
@@ -172,3 +172,7 @@ def user_time(request):
     return render(request,'html_files/user_data_confirm.htm',{'userdata':userdata})
 
 
+@login_required(login_url="login")
+def submitted_data(request):
+    userdata = UserData.objects.filter(username=request.user,submit_data__lte=datetime.datetime.today(),submit_data__gt=datetime.datetime.today()-datetime.timedelta(days=15)).order_by('-submit_data')
+    return render(request,'html_files/Home.htm',{'userdata':userdata})

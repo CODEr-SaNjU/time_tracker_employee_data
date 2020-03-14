@@ -14,6 +14,7 @@ urlpatterns = [
     path("change_password/",views.user_change_password, name="user_change_password"),
     path("user_data_filter/",views.user_data_filter,name="user_data_filter"),
     path('user_time/',views.user_time,name="user_time"),
+    path('submitted_data/',views.submitted_data,name='submitted_data')
 
 
 ]
