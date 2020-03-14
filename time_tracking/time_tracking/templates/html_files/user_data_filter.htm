@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>filter data</title>
+    <style>
+    .ui-datepicker-calendar {
+    display: none;
+    }
+    </style>
+</head>
+    <body class="theme-light">
+  {% csrf_token %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">Vertibld  </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href= "{% url 'userdata_create_new' %}">Submit Data</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <form method="GET" action="{% url 'user_data_filter' %}"  class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2 " type="text" name="date" placeholder="Search" id="startDate" aria-label="Search" autocomplete="off" required>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        </div>
+      </span>
+      <span class="navbar-text">
+        <button class="btn btn-info my-2 my-sm-0" type="button"><a href="#" class="ml-2">Wellcome {{request.user.first_name}}</a></button>
+      </span>
+      <span class="navbar-text">
+        <button class="btn btn-info my-2 my-sm-0" value="Export"   id="btn" type="button">Export Excel</button>
+      </span>
+      <span class="navbar-text">
+        <button class="btn btn-info my-2 my-sm-0" type="button"><a href="{% url 'user_change_password' %}" class="ml-2">Change Password</a></button>
+      </span>
+      <span class="navbar-text">
+        <button class="btn btn-info my-2 my-sm-0" type="button"><a href="{% url 'logout' %}" class="ml-2">Logout</a></button>
+      </span>
+    </div>
+  </nav>
+{% block content %}
+<table id="table" class="table table-hover table-sm table-dark">
+  <thead>
+    <tr>
+      {% csrf_token %}
+      <th scope="col">Department:</th>
+      <th scope="col">Location</th>
+      <th scope="col">Project Enq</th>
+      <th scope="col">Enq_no</th>
+      <th scope="col">Name_of_project</th>
+      <th scope="col">Activity</th>
+      <th scope="col">Hour</th>
+      <th scope="col">Submit Date</th>
+      <th scope="col">Start time</th>
+      <th scope="col">End time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for userdata in userdata  %}
+    <tr>
+      <td>{{userdata.department}}</td>
+      <td>{{userdata.location}}</td>
+      <td>{{userdata.projectEnq}}</td>
+      <td>{{userdata.enq_no}}</td>
+      <td>{{userdata.name_of_project}}</td>
+      <td>{{userdata.activity}}</td>
+      <td>{{userdata.hours}}</td>
+      <td>{{userdata.submit_data}}</td>
+      <td>{{userdata.start_time}}</td>
+      <td>{{userdata.end_time}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+<script src="https://cdn.rawgit.com/rainabba/jquery-table2excel/1.1.0/dist/jquery.table2excel.min.js"></script>
+<script>
+    $(function(){
+    $('#startDate').datepicker( {
+      changeMonth: true,
+      changeYear: true,
+      showButtonPanel: true,
+      dateFormat: 'MM yy',
+      onClose: function(dateText, inst) {
+        $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+      }
+    });
+  });
+
+$(document).ready(function(){
+  $("#btn").on('click',function(e){
+    $("table").table2excel({
+      name: "Emp_data",
+      filename : "Workbook",
+    });
+  });
+});
+</script>
+{% endblock %}
+  

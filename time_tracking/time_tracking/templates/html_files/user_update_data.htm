@@ -1,0 +1,137 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script> 
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <title>Time tracker</title>
+  <!-- Bootstrap core CSS -->
+  {%load static%}
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/Home.css' %}">
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <a class="navbar-brand" href="/dashboard/">Vertibld</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'userdata_create_new' %}">Submit Data</a>
+        </li>
+      </ul>
+      <span class="navbar-text navbar-dark bg-info">
+        <a href="#" class="ml-2" id="user_name"><strong> Wellcome {{request.user.first_name}}</strong></a>
+      </span>
+      <span class="navbar-text">
+        <a href="#" class="ml-2">Change Password</a>
+      </span>
+      <span class="navbar-text">
+        <a href="{% url 'logout' %}" class="ml-2">Logout</a>
+      </span>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm">
+      </div>
+      <div class="col-sm">
+        {% if form %}
+        {% block content %}
+        <!-- <h3>---------More Details-------</h3> -->
+        <form method="POST" id="UserDataForm" data-activity-url="{% url 'ajax_load_activity' %}">
+          {% csrf_token %}
+          {{form |crispy}}
+          {% if messages %}
+          <div class="messages">
+              {% for message in messages %}
+              <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                  <div class="alert alert-success" role="alert">&nbsp;{{ message }}</div></div>
+              {% endfor %}
+          </div>
+          {% endif %}
+          <button class="btn btn-lg btn-info btn-block text-uppercase" type="submit" value="update">save</button>
+          <button class="btn btn-lg btn-danger btn-block text-uppercase" type="reset">Cancel</button>
+        </form>
+        {% endblock %}
+        {% endif %}
+        
+      </div>
+      <div class="col-sm">
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
+  <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+  <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+  
+  {% block javascript %}
+  <script>
+    $("#id_department").change(function () {
+      var url = $("#UserDataForm").attr("data-activity-url");  // get the url of the `load_activity` view
+      var departmentId = $(this).val();  // get the selected department ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/load-activity/)
+        data: {
+          'department': departmentId       // add the department id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_activity` view function
+          $("#id_activity").html(data);  // replace the contents of the activity input with the data that came from the server
+        }
+      });
+
+    });
+
+    $("#id_projectEnq").change(function () {  // get the url of the `load_activity` view
+      var projectEnqId = $(this).val();  // get the selected department ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url:"{% url 'ajax_load_enq_no'  %}",          // set the url of the request (= localhost:8000/load-activity/)
+        data: {
+          'projectEnq': projectEnqId       // add the department id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_activity` view function
+          $("#id_enq_no").html(data);  // replace the contents of the activity input with the data that came from the server
+        }
+      });
+
+    });
+
+    $("#id_enq_no").change(function () {  // get the url of the `load_activity` view
+      var enq_noId = $(this).val();  // get the selected department ID from the HTML input
+
+      $.ajax({                       // initialize an AJAX request
+        url: "{% url 'ajax_load_name_of_project'  %}",                   // set the url of the request (= localhost:8000/load-activity/)
+        data: {
+          'enq_no':enq_noId       // add the department id to the GET parameters
+        },
+        success: function (data) {   // `data` is the return of the `load_activity` view function
+          $("#id_name_of_project").html(data);  // replace the contents of the activity input with the data that came from the server
+        }
+      });
+
+    });
+    $('#id_start_time').timepicker({
+            uiLibrary: 'bootstrap4'
+        });
+        $('#id_end_time').timepicker({
+          uiLibrary: 'bootstrap4'
+          });
+  </script>
+{% endblock %}
+</body>
+</html>

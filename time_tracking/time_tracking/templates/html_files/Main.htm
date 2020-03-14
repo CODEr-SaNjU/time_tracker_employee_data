@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Dashboard</title>
+    <style>
+    .ui-datepicker-calendar {
+    display: none;
+    }
+    </style>
+</head>
+    <body>
+  {% csrf_token %}
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">Vertibld  </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href= "{% url 'userdata_create_new' %}">Submit Data</a>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <form method="GET" action="{% url 'user_data_filter' %}"  class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2 " type="text" name="date" placeholder="Search" id="startDate" aria-label="Search" autocomplete="off" required>
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        </div>
+      </span>
+      <span class="navbar-text">
+        <button class="btn btn-info my-2 my-sm-0" type="button"><a href="#" class="ml-2">Wellcome {{request.user.first_name}}</a></button>
+      </span>
+      <span class="navbar-text">
+      </span>
+      <span class="navbar-text">
+        <button class="btn btn-info my-2 my-sm-0" type="button"><a href="{% url 'user_change_password' %}" class="ml-2">Change Password</a></button>
+      </span>
+      <span class="navbar-text">
+        <button class="btn btn-info my-2 my-sm-0" type="button"><a href="{% url 'logout' %}" class="ml-2">Logout</a></button>
+      </span>
+    </div>
+  </nav>
+  {% block content %} 
+  
+  {% endblock %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+  <script src="https://rawgit.com/unconditional/jquery-table2excel/master/src/jquery.table2excel.js"></script>
+  <script>
+  $(function(){
+    $('#startDate').datepicker( {
+      changeMonth: true,
+      changeYear: true,
+      showButtonPanel: true,
+      dateFormat: 'MM yy',
+      onClose: function(dateText, inst) {
+        $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+      }
+    });
+  });
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends 'html_files/Main.htm' %}
+
+{% block content %}
+<table class="table table-hover table-sm table-dark">
+  <thead>
+    <tr>
+      {% csrf_token %}
+      <th scope="col">Department:</th>
+      <th scope="col">Location</th>
+      <th scope="col">Project Enq</th>
+      <th scope="col">Enq_no</th>
+      <th scope="col">Name_of_project</th>
+      <th scope="col">Activity</th>
+      <th scope="col">Hour</th>
+      <th scope="col">Submit Date</th>
+      <th scope="col">Start time</th>
+      <th scope="col">End time</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for userdata in userdata  %}
+    <tr>
+      <td>{{userdata.department}}</td>
+      <td>{{userdata.location}}</td>
+      <td>{{userdata.projectEnq}}</td>
+      <td>{{userdata.enq_no}}</td>
+      <td>{{userdata.name_of_project}}</td>
+      <td>{{userdata.activity}}</td>
+      <td>{{userdata.hours}}</td>
+      <td>{{userdata.submit_data}}</td>
+      <td>{{userdata.start_time}}</td>
+      <td>{{userdata.end_time}}</td>
+      <td><a href="{% url 'user_update_data' userdata.id %}"><button type="button" class="btn btn-info btn-sm fa fa-edit">&nbsp;&nbsp;Edit<i class="fa fa-edit"></i></button></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
+{% endblock %}
+  
