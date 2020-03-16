@@ -1,23 +1,24 @@
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Home.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/Home.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/static/Bootstrap4_css/bootstrap.min.css">
+    <title>Home</title>
+    <link rel="icon" href="/static/image/logo.png" alt="Vertibld" type = "image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <style>
     .ui-datepicker-calendar {
     display: none;
     }
     </style>
 </head>
-    <body>
-  {% csrf_token %}
+<body>
   <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="{% url 'dashboard' %}">
       <img src="/static/image/logo.png"  width="100" height="30" alt="">
@@ -37,12 +38,11 @@
           <a class="nav-link" href= "{% url 'submitted_data' %}">Submitted Data</a>
         </li>
       </ul>
-      <span class="navbar-text">
+      <span class="navbar-text"></span>
         <form method="GET" action="{% url 'user_data_filter' %}"  class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2 " type="text" name="date" placeholder="Search" id="startDate" aria-label="Search" autocomplete="off" required>
           <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
         </form>
-        </div>
       </span>
       <span class="navbar-text">
         <button class="btn  my-2 my-sm-0" type="button"><a href="#" class="ml-2">Welcome {{request.user.first_name}}</a></button>
@@ -61,8 +61,13 @@
   
   {% endblock %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="/static/Jquery/jquery-3.4.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+  <script src="/static/Jquery/jquery-ui-1.12.1/jquery-ui.min.js"></script>
   <script src="https://rawgit.com/unconditional/jquery-table2excel/master/src/jquery.table2excel.js"></script>
+  <script src="/static/Jquery/jquery.table2excel.js"></script>
   <script>
   $(function(){
     $('#startDate').datepicker( {

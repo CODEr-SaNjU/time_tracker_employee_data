@@ -25,7 +25,7 @@ SECRET_KEY = '&gcke92vxalfw_g3anhhghu6*51ic_2rr8#9keq8%=no4v_*xk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost','192.168.2.49','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.2.85','127.0.0.1']
 
 
 # Application definition
@@ -50,7 +50,7 @@ REST_FRAMEWORK = {
 }
 
 
-SESSION_COOKIE_AGE = 4000
+SESSION_COOKIE_AGE = 40000
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
