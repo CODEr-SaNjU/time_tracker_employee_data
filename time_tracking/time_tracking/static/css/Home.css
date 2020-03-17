@@ -8,3 +8,8 @@
     background-color: #3e3c3c;
 
 }
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+.table{
+    font-family: 'Montserrat', sans-serif;
+}
