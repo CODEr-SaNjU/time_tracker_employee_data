@@ -16,6 +16,7 @@ pylint = "*"
 pylint-django = "*"
 xlwt = "*"
 rest-auth = "*"
+crispy-forms = "*"
 
 [requires]
 python_version = "3.7"
