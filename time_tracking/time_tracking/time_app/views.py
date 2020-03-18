@@ -90,6 +90,9 @@ def userdata_create_new(request):
     if request.method == "POST":
         userdata_form = UserDataForm(data = request.POST)
         if userdata_form.is_valid():
+            start_time = userdata_form.cleaned_data('start_time')
+            end_time = userdata_form.cleaned_data('end_time')
+            submit_data = userdata_form.cleaned_data('submit_data') 
             Employee=userdata_form.save(commit=False)
             Employee.username = request.user
             Employee.save()

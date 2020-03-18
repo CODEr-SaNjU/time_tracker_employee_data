@@ -1,6 +1,7 @@
 from django import forms
 from .models import Activity,Department,Location,Enq_No,Project_Enq,UserData,Enq_No,Name_of_Project
 from django.contrib.auth.models import User
+from django.http import Http404, HttpResponse
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -38,4 +39,15 @@ class UserDataForm(forms.ModelForm):
             self.fields['enq_no'].queryset = self.instance.projectEnq.enq_no_set.order_by('enq_no')
             self.fields['name_of_project'].queryset = self.instance.enq_no.name_of_project_set.order_by('name_of_project')
         
-       
+    # def clean(self):
+    #     cleaned_data = super(UserDataForm, self).clean()
+    #     start = cleaned_data.get('start_time')
+    #     end = cleaned_data.get('end_time')
+    #     conflicts = UserData.objects.filter(
+    #         submit_data__day=day_num,
+    #         start_time__lte=end,
+    #         end_time__gte=start,
+    #     )
+    #     if any(conflicts):
+    #         raise forms.ValidationError(("%i conflicts found" % conflicts.count()))
+    #     return HttpResponse("time is overlap")

@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-center">
                             <div class="brand_logo_container">
-                                <img src="{% static "image/logo.png" %}" class="brand_logo" alt="Logo">
+                                <img src="{% static "image/logo.png" %}" class="brand_logo col-sm-18 col-md-17 col-lg-12 mx-auto" alt="Logo">
                             </div>
                         </div>
                         <form action="" method="POST" class="form-signin">
@@ -48,9 +48,11 @@
                                 <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password"  autocomplete="off" required>
                                 <label for="inputPassword">Password</label>
                             </div>
-                            <div class="custom-control custom-checkbox mb-3">
-                                <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                &nbsp;&nbsp;&nbsp;<label class="custom-control-label" for="customCheck1"><span><span></span></span> Remember password</label>
+                            <div class="mt-4">
+                                <div class="custom-control custom-checkbox mb-3">
+                                    <input type="checkbox" class="Rember-input" id="Rember" required>
+                                    &nbsp;<label for="Rember" class="Rember-term"><span><span></span></span>Rember Password <a href="#" class="term-service"></a></label>
+                                </div>
                             </div>
                             <button class="btn btn-lg  btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">Sign in</button>
                             <button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
