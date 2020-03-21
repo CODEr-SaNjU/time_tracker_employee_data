@@ -38,16 +38,12 @@ class UserDataForm(forms.ModelForm):
             self.fields['activity'].queryset = self.instance.department.activity_set.order_by('activity')
             self.fields['enq_no'].queryset = self.instance.projectEnq.enq_no_set.order_by('enq_no')
             self.fields['name_of_project'].queryset = self.instance.enq_no.name_of_project_set.order_by('name_of_project')
-        
-    # def clean(self):
-    #     cleaned_data = super(UserDataForm, self).clean()
-    #     start = cleaned_data.get('start_time')
-    #     end = cleaned_data.get('end_time')
-    #     conflicts = UserData.objects.filter(
-    #         submit_data__day=day_num,
-    #         start_time__lte=end,
-    #         end_time__gte=start,
-    #     )
-    #     if any(conflicts):
-    #         raise forms.ValidationError(("%i conflicts found" % conflicts.count()))
-    #     return HttpResponse("time is overlap")
+
+
+
+
+
+            def clean_userdata(self):
+                data = self.cleaned_data.get('start_time')
+                pass
+            
