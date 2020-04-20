@@ -3,9 +3,9 @@ from .forms import UserDataForm
 from django.contrib.auth.models import Group
 from . models import Location,Department,Project_Enq,Activity,Name_of_Project,Enq_No
 from time_app.models import UserData
+from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
-
 
 
 

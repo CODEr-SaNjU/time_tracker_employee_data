@@ -1,0 +1,52 @@
+
+{% block content %}
+
+{%  include 'Admin_panel/status.htm' %}
+
+
+<br>
+
+<div class="row">
+	<div class="col-md-0">
+	</div>
+
+	<div class="col-md-12">
+		<h5>LAST 5 Submit Employee Data</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Create Employee Data</a>
+			<table class="table table-sm">
+				<tr>
+					<th>Employee Id</th>
+					<th>Department</th>
+					<th>Activity</th>
+					<th>Location</th>
+					<th>Project Enquiry</th>
+					<th>Enq Number</th>
+					<th>Name of Project</th>
+					<th>Submit Date</th>
+					<th>starting time</th>
+					<th>Ending time</th>
+					<th>Hours</th>
+				</tr>
+
+				{% for order in orders %}
+					<tr>
+						<td>{{order.product}}</td>
+						<td>{{order.date_created}}</td>
+						<td>{{order.status}}</td>
+						<td><a href="">Update</a></td>
+						<td><a href="">Delete</a></td>
+
+					</tr>
+				{% endfor %}
+
+		
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}
+

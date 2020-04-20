@@ -13,8 +13,6 @@ class UserDataForm(forms.ModelForm):
         fields = ['department','location','projectEnq','enq_no','name_of_project','activity','submit_data','start_time','end_time']
         widgets = {
              'submit_data':DateInput(attrs={'type': 'date'}),
-            #  'start_time':DateInput(attrs={'class':'timepicker'}),
-            #  'end_time':DateInput(attrs={'class':'timepicker'})
         }
        
 
@@ -38,27 +36,6 @@ class UserDataForm(forms.ModelForm):
             self.fields['activity'].queryset = self.instance.department.activity_set.order_by('activity')
             self.fields['enq_no'].queryset = self.instance.projectEnq.enq_no_set.order_by('enq_no')
             self.fields['name_of_project'].queryset = self.instance.enq_no.name_of_project_set.order_by('name_of_project')
-<<<<<<< HEAD
-
-
-
-
-
-            def clean_userdata(self):
-                data = self.cleaned_data.get('start_time')
-                pass
-            
-=======
         
     def clean(self):
-        cleaned_data = super(UserDataForm, self).clean()
-        start = cleaned_data.get('start_time')
-        end = cleaned_data.get('end_time')
-        conflicts = UserData.objects.filter(
-            start_time__lte=end,
-            end_time__gte=start,
-        )
-        if any(conflicts):
-            raise forms.ValidationError(("%i conflicts found" % conflicts.count()))
-        return HttpResponse("time is overlap")
->>>>>>> dd6d91d277b5cae6557cef83dd3fadda6cd64d40
+        pass

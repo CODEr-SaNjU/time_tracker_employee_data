@@ -63,4 +63,6 @@ class UserData(models.Model):
     end_time = models.TimeField(verbose_name="Ending Time", auto_now=False,  auto_now_add=False)
     submit_data = models.DateField(verbose_name='Submit Date',auto_now_add=False)
     hours = models.DurationField("Hours",blank=True,null=True)
+    
+
 
