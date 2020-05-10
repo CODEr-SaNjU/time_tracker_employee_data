@@ -184,3 +184,6 @@ def Admin_panel(request):
 
 def Admin_panel_Reg(request):
     return render(request,'Admin_panel/Employee_registrion.htm')
+
+def Admin_panel_Data(request):
+    return render(request,'Admin_panel/Employee_data.htm')

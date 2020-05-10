@@ -16,7 +16,8 @@ urlpatterns = [
     path('user_time/',views.user_time,name="user_time"),
     path('submitted_data/',views.submitted_data,name='submitted_data'),
     path('Admin_panel/',views.Admin_panel,name='Admin_panel'),
-    path('User_registrion/',views.Admin_panel_Reg,name='Admin_panel_Reg')
+    path('User_registrion/',views.Admin_panel_Reg,name='Admin_panel_Reg'),
+    path('employee_data/',views.Admin_panel_Data,name='Admin_panel_Reg')
 
 
 ]
