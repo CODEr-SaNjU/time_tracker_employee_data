@@ -98,8 +98,8 @@
 
 <div class="row">
 	<div class="col-md">
-		<div class="card card-body"  style="background-color: #9e8c8c;">
-			<table class="table table-hover table-sm"  style="color: #ffffff;">
+		<div class="card card-body" >
+			<table class="table table-hover table-sm table-dark">
 				<thead>
 					<tr>
 						<th>Employee Id</th>
@@ -117,20 +117,22 @@
 					</tr>
 				</thead>
 				<tbody>
+					{% for i in employee_data %}
 					<tr>
-						<td>Employee Id</td>
-						<td>Department</td>
-						<td>Activity</td>
-						<td>Location</td>
-						<td>Project Enquiry</td>
-						<td>Enq Number</td>
-						<td>Name of Project</td>
-						<td>Submit Date</td>
-						<td>starting time</td>
-						<td>Ending time</td>
-						<td>Hours</td>
+						<td>{{i.username}}</td>
+						<td>{{i.department}}</td>
+						<td>{{i.activity}}</td>
+						<td>{{i.location}}</td>
+						<td>{{i.projectEnq}}</td>
+						<td>{{i.enq_no}}</td>
+						<td>{{i.name_of_project}}</td>
+						<td>{{i.start_time}}</td>
+						<td>{{i.end_time}}</td>
+						<td>{{i.submit_data}}</td>
+						<td>{{i.hours}}</td>
 						<td><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button> &nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button> </td>
 					</tr>
+				{% endfor %}
 				</tbody>
 			</table>
 		</div>

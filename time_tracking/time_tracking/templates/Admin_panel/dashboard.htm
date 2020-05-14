@@ -30,16 +30,21 @@
 					<th>Hours</th>
 				</tr>
 
-				{% for order in orders %}
-					<tr>
-						<td>{{order.product}}</td>
-						<td>{{order.date_created}}</td>
-						<td>{{order.status}}</td>
-						<td><a href="">Update</a></td>
-						<td><a href="">Delete</a></td>
-
-					</tr>
-				{% endfor %}
+				{% for i in employee_data %}
+				<tr>
+					<td>{{i.username}}</td>
+					<td>{{i.department}}</td>
+					<td>{{i.activity}}</td>
+					<td>{{i.location}}</td>
+					<td>{{i.projectEnq}}</td>
+					<td>{{i.enq_no}}</td>
+					<td>{{i.name_of_project}}</td>
+					<td>{{i.start_time}}</td>
+					<td>{{i.end_time}}</td>
+					<td>{{i.submit_data}}</td>
+					<td>{{i.hours}}</td>
+				</tr>
+			{% endfor %}
 
 		
 			</table>

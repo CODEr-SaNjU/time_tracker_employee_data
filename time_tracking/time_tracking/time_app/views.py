@@ -179,11 +179,18 @@ def submitted_data(request):
 
 
 def Admin_panel(request):
-    return render(request,'Admin_panel/inbox.htm')
+    employee_data = UserData.objects.all()
+    total_employee_data = employee_data.count()
+    user = User.objects.all()
+    total_user = user.count()
+    # admin = user.filter(status="is_superuser").count()
+    return render(request,'Admin_panel/inbox.htm',{"employee_data":employee_data,'total_user':total_user,'total_employee_data':total_employee_data,})
 
 
 def Admin_panel_Reg(request):
-    return render(request,'Admin_panel/Employee_registrion.htm')
+    Employee = User.objects.all()
+    return render(request,'Admin_panel/Employee_registrion.htm',{'Employee':Employee})
 
 def Admin_panel_Data(request):
-    return render(request,'Admin_panel/Employee_data.htm')
+    employee_data = UserData.objects.all()
+    return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
