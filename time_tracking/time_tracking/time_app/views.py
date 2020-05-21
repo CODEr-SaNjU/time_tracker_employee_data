@@ -46,7 +46,7 @@ def home(request):
     return render(request,'html_files/Main.htm')
 
 
-@unauthenticated_user
+# @unauthenticated_user
 def register(request):
     if request.method=='POST':
         name = request.POST['name']
@@ -60,7 +60,7 @@ def register(request):
                 return redirect('register')
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'email already exists')
-                return  redirect('register')
+                return  redirect('Admin_panel_Reg')
             # elif not Employeeid.isupper():
             #     messages.info(request,"Employeeid should be  uppercase")
             #     return redirect('register')
@@ -77,13 +77,18 @@ def register(request):
                 user = User.objects.create_user(email=email,username=Employeeid,password=password,first_name=name)
                 user.save()
                 messages.success(request,'registration has been successfully completed '+name)
-                return redirect('register')
+                return redirect('Admin_panel_Reg')
         else:
             messages.info(request,'password not matching')
-            return redirect('register')
+            return redirect('Admin_panel_Reg')
     else:
-        return render(request,'html_files/register.htm')
+        return render(request,'Admin_panel/Employee_registrion.htm')
 
+def forget_password(request):
+    return render(request,'registration/password_reset_form.htm')
+
+def password_reset_done(request):
+    return render(request,'registration/password_reset_done.htm')
          
 @login_required(login_url='login')   
 def userdata_create_new(request):
@@ -183,14 +188,80 @@ def Admin_panel(request):
     total_employee_data = employee_data.count()
     user = User.objects.all()
     total_user = user.count()
-    # admin = user.filter(status="is_superuser").count()
-    return render(request,'Admin_panel/inbox.htm',{"employee_data":employee_data,'total_user':total_user,'total_employee_data':total_employee_data,})
+    # total_super_user = user.is_superuser.count()
+    last_five = UserData.objects.filter().order_by('-id')[:5]
+    last_five_in_ascending_order = reversed(last_five)
+    return render(request,'Admin_panel/inbox.htm',{"employee_data":employee_data,'total_user':total_user,'total_employee_data':total_employee_data,'last_five':last_five})
 
 
 def Admin_panel_Reg(request):
     Employee = User.objects.all()
     return render(request,'Admin_panel/Employee_registrion.htm',{'Employee':Employee})
+    if request.method=='POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        Employeeid = request.POST['empid']
+        password = request.POST['password']
+        password1 = request.POST['password1']
+        if password==password1:
+            if User.objects.filter(username=Employeeid).exists():
+                messages.info(request,'employee id already exists')
+                return redirect('register')
+            elif User.objects.filter(email=email).exists():
+                messages.info(request,'email already exists')
+                return  redirect('Admin_panel_Reg')
+            # elif not Employeeid.isupper():
+            #     messages.info(request,"Employeeid should be  uppercase")
+            #     return redirect('Admin_panel_Reg')
+            # elif not 'MOBTR' in Employeeid:
+            #     messages.info(request,"Employeeid should be in correct")
+            #     return redirect('Admin_panel_Reg')
+            # elif not 'geodesictechniques' in email:
+            #     messages.info(request,"email should be in correct format")
+            #     return redirect('Admin_panel_Reg')
+            # elif 'gmail' in email:
+            #     messages.info(request,"email should be in correct format")
+            #     return redirect('Admin_panel_Reg')
+            else:
+                user = User.objects.create_user(email=email,username=Employeeid,password=password,first_name=name)
+                user.save()
+                messages.success(request,'registration has been successfully completed '+name)
+                return redirect('Admin_panel_Reg')
+        else:
+            messages.info(request,'password not matching')
+            return redirect('Admin_panel_Reg')
+    else:
+        return render(request,'Admin_panel/Employee_registrion.htm')
 
 def Admin_panel_Data(request):
     employee_data = UserData.objects.all()
     return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
+
+def Admin_panel_reg_search(request):
+    search = request.GET['search']
+    Employee = User.objects.filter(username__icontains=search)
+    return render(request,'Admin_panel/Employee_registrion.htm',{"Employee":Employee})
+
+def Admin_panel_user_update_data(request,pk_id):
+    obj = get_object_or_404(User,id=pk_id)
+    form = UserDataForm(request.POST or None,instance=obj)
+    if form.is_valid():
+        instance=form.save(commit=False)
+        instance.username = request.user
+        instance.save()
+        form.save()
+        messages.success(request,'data has been update successfully  ')
+        return redirect('Admin_panel_user_update_data')
+    return render(request,'Admin_panel/edit_user.htm',{'form':form})
+
+def Admin_panel_user_delete_data(request,pk_id):
+    users = User.objects.get(id=pk_id)
+    users.delete()
+    return redirect('/User_registrion')
+    pass
+
+def Admin_panel_data_search(request):
+    search = request.GET['search']
+    employee_data = UserData.objects.filter(foreinkeyfield__foreinkeyfield__username=search)
+    return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
+

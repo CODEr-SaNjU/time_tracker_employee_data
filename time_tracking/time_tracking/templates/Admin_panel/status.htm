@@ -5,7 +5,7 @@
 		<div class="col-md">
 			<div class="card text-center text-white  mb-3" id="total-orders">
 			  	<div class="card-header">
-			  		<h5 class="card-title"><a href="/User_registrion/"style="text-decoration: none;">Employee </a></h5>
+			  		<h5 class="card-title"><a href="{% url 'Admin_panel_Reg' %}"style="text-decoration: none;">Employee </a></h5>
 			  	</div>
 			  	<div class="card-body">
 			    	<h3 class="card-title">{{total_user}}</h3>
@@ -18,7 +18,7 @@
 		<div class="col-md">
 			<div class="card text-center text-white  mb-3" id="orders-delivered">
 			  	<div class="card-header">
-			  		<h5 class="card-title"><a href="/employee_data/"style="text-decoration: none;">EMPLOYEE DATA</a></h5>
+			  		<h5 class="card-title"><a href="{% url 'Admin_panel_data' %}"style="text-decoration: none;">EMPLOYEE DATA</a></h5>
 			  	</div>
 			  	<div class="card-body">
 			    	<h3 class="card-title">{{total_employee_data}}</h3>
@@ -34,7 +34,7 @@
 			  		<h5 class="card-title">Admin</h5>
 			  	</div>
 			  	<div class="card-body">
-			    	<h3 class="card-title">{{admin}}</h3>
+			    	<h3 class="card-title">{{total_super_user}}</h3>
 			  	</div>
 			</div>
 		</div>

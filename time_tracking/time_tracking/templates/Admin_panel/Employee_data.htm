@@ -66,12 +66,6 @@
                                 </div>
                                 <button class="btn btn-lg btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">submit</button>
                                 <button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
-                                <hr class="my-4">
-                                <div class="mt-4">
-                                    <div class="d-flex justify-content-center links">
-                                        Already have an account?<a href="{% url 'login' %}" class="ml-2">Login</a>
-                                    </div>
-                                </div>
                             </form>
 						</div>
 						<div class="modal-footer">
@@ -87,10 +81,10 @@
 <div class="row">
 	<div class="col">
 		<div class="card card-body">
-			<form method="get" class="form-inline my-2 my-lg-10">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<form method="GET" action="/Admin_panel_data_search" class="form-inline my-2 my-lg-10">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
 				<button class="btn btn-primary" type="submit">Search</button>
-		  </form>
+		  	</form>
 		</div>
 	</div>
 </div>
@@ -102,18 +96,19 @@
 			<table class="table table-hover table-sm table-dark">
 				<thead>
 					<tr>
-						<th>Employee Id</th>
-						<th>Department</th>
-						<th>Activity</th>
-						<th>Location</th>
-						<th>Project Enquiry</th>
-						<th>Enq Number</th>
-						<th>Name of Project</th>
-						<th>Submit Date</th>
-						<th>starting time</th>
-						<th>Ending time</th>
-						<th>Hours</th>
-						<th>action</th>
+						{% csrf_token %}
+						<th scope="col">Employee Username</th>
+						<th scope="col">Department</th>
+						<th scope="col">Activity</th>
+						<th scope="col">Location</th>
+						<th scope="col">Project Enquiry</th>
+						<th scope="col">Enq Number</th>
+						<th scope="col">Name of Project</th>
+						<th scope="col">Submit Date</th>
+						<th scope="col">starting time</th>
+						<th scope="col">Ending time</th>
+						<th scope="col">Hours</th>
+						<th scope="col">action</th>
 					</tr>
 				</thead>
 				<tbody>

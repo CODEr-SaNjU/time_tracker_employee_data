@@ -7,40 +7,40 @@
 <br>
 <div class="row">
 	<div class="col">
-			<button class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter" type="button" style="margin-left: 1220px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add User</button>
+			<button class="btn btn-outline-info" data-toggle="modal" data-target="#exampleModalCenter" type="button" style="margin-left: 1220px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add User <i class="fa fa-user"></i> </button>
 			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 				<div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
+							<h5 class="modal-title justify-content-center" id="exampleModalLongTitle"><i class="fa fa-user"></i> Add User</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-						<div class="modal-body">
+						<div class="modal-body form_container">
 							<form action="" method="POST" class="form-signin">
                                 {% csrf_token %}
                                 <div class="form-label-group">  
                                 </div>
                                 <div class="form-label-group">
+									<label for="inputName">Name</label>
                                     <input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus autocomplete="off">
-                                    <label for="inputName">Name</label>
                                 </div>
                                 <div class="form-label-group">
+									<label for="inputemail">Email Id</label>
                                     <input type="email" name="email" id="inputemail" class="form-control" placeholder="email" required autocomplete="off">
-                                    <label for="inputemail">Email Id</label>
                                 </div>
                                 <div class="form-label-group">
+									<label for="inputEmployeeid">Employee Username</label>
                                     <input type="text" name="empid" id="inputEmployeeid" class="form-control" placeholder="employee id Here"  autocomplete="off">
-                                    <label for="inputEmployeeid">Employee Username</label>
                                 </div>
                                 <div class="form-label-group">
+									<label for="inputPassword">Password</label>
                                     <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" autocomplete="off" required>
-                                    <label for="inputPassword">Password</label>
                                 </div>
                                 <div class="form-label-group">
+									<label for="inputPassword1">Confirm Password</label>
                                     <input type="password" id="inputPassword1" class="form-control" placeholder="Confirm Password" name="password1" autocomplete="off" required>
-                                    <label for="inputPassword1">Confirm Password</label>
                                 </div>
                                 {% if messages %}
                                 <div class="messages">
@@ -57,17 +57,8 @@
                                     </div>
                                 </div>
                                 <button class="btn btn-lg btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">submit</button>
-                                <button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
-                                <hr class="my-4">
-                                <div class="mt-4">
-                                    <div class="d-flex justify-content-center links">
-                                        Already have an account?<a href="{% url 'login' %}" class="ml-2">Login</a>
-                                    </div>
-                                </div>
-                            </form>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
+							</form>
 						</div>
 					</div>
 				</div>
@@ -79,10 +70,10 @@
 <div class="row">
 	<div class="col">
 		<div class="card card-body">
-			<form method="get" class="form-inline my-2 my-lg-10">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<form method="GET" action="/Admin_panel_reg_search" class="form-inline my-2 my-lg-10">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
 				<button class="btn btn-primary" type="submit">Search</button>
-		  </form>
+			</form>
 		</div>
 	</div>
 </div>
@@ -109,7 +100,7 @@
 						<td>{{i.email}}</td>
 						<td>{{i.first_name}}</td>
 						<td>{{i.is_superuser}}</td>
-						<td><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button> &nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button> </td>
+						<td><a href="{%url 'Admin_panel_user_update_data' user.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_user_delete_data' user.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
 					</tr>
 					{% endfor %}
 				</tbody>
