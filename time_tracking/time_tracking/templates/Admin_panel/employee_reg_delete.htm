@@ -1,0 +1,5 @@
+<h1>User Delete</h1>
+<form method="POST">{% csrf_token %}
+    Are you sure you want to delete "{{ Employee }}" ?
+    <button type="submit" value="Submit">submit</button>
+</form>

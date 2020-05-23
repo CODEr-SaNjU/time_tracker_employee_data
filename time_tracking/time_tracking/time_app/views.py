@@ -84,11 +84,6 @@ def register(request):
     else:
         return render(request,'Admin_panel/Employee_registrion.htm')
 
-def forget_password(request):
-    return render(request,'registration/password_reset_form.htm')
-
-def password_reset_done(request):
-    return render(request,'registration/password_reset_done.htm')
          
 @login_required(login_url='login')   
 def userdata_create_new(request):
@@ -207,7 +202,7 @@ def Admin_panel_Reg(request):
             if User.objects.filter(username=Employeeid).exists():
                 messages.info(request,'employee id already exists')
                 return redirect('register')
-            elif User.objects.filter(email=email).exists():
+            elif User.objects.filter(email=email).eobjectxists():
                 messages.info(request,'email already exists')
                 return  redirect('Admin_panel_Reg')
             # elif not Employeeid.isupper():
@@ -254,12 +249,12 @@ def Admin_panel_user_update_data(request,pk_id):
         return redirect('Admin_panel_user_update_data')
     return render(request,'Admin_panel/edit_user.htm',{'form':form})
 
-def Admin_panel_user_delete_data(request,pk_id):
-    users = User.objects.get(id=pk_id)
-    users.delete()
-    return redirect('/User_registrion')
-    pass
-
+def Admin_panel_user_delete_data(request, pk, template_name='Admin_panel/employee_reg_delete.htm'):
+    book= get_object_or_404(User, pk=pk)    
+    if request.method=='POST':
+        book.delete()
+        return redirect('/User_registrion')
+    return render(request, template_name, {"Employee":Employee})
 def Admin_panel_data_search(request):
     search = request.GET['search']
     employee_data = UserData.objects.filter(foreinkeyfield__foreinkeyfield__username=search)
