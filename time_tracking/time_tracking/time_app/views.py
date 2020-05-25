@@ -60,7 +60,7 @@ def register(request):
                 return redirect('register')
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'email already exists')
-                return  redirect('Admin_panel_Reg')
+                return  redirect('register')
             # elif not Employeeid.isupper():
             #     messages.info(request,"Employeeid should be  uppercase")
             #     return redirect('register')
@@ -77,12 +77,12 @@ def register(request):
                 user = User.objects.create_user(email=email,username=Employeeid,password=password,first_name=name)
                 user.save()
                 messages.success(request,'registration has been successfully completed '+name)
-                return redirect('Admin_panel_Reg')
+                return redirect('register')
         else:
             messages.info(request,'password not matching')
-            return redirect('Admin_panel_Reg')
+            return redirect('register')
     else:
-        return render(request,'Admin_panel/Employee_registrion.htm')
+        return render(request,'html_files/register.htm')
 
          
 @login_required(login_url='login')   
@@ -238,8 +238,7 @@ def Admin_panel_reg_search(request):
     return render(request,'Admin_panel/Employee_registrion.htm',{"Employee":Employee})
 
 def Admin_panel_user_update_data(request,pk_id):
-    obj = get_object_or_404(User,id=pk_id)
-    form = UserDataForm(request.POST or None,instance=obj)
+    obj = get_object_or_404(User,id=pk_id)                                   
     if form.is_valid():
         instance=form.save(commit=False)
         instance.username = request.user
@@ -249,12 +248,12 @@ def Admin_panel_user_update_data(request,pk_id):
         return redirect('Admin_panel_user_update_data')
     return render(request,'Admin_panel/edit_user.htm',{'form':form})
 
-def Admin_panel_user_delete_data(request, pk, template_name='Admin_panel/employee_reg_delete.htm'):
-    book= get_object_or_404(User, pk=pk)    
-    if request.method=='POST':
-        book.delete()
-        return redirect('/User_registrion')
-    return render(request, template_name, {"Employee":Employee})
+def Admin_panel_user_delete_data(request, pk):
+    Employee = get_object_or_404(User,id=pk)
+    if request.method == "POST":
+        Employee.delete()
+        return redirect('Admin_panel_Reg')
+    return render(request,'Admin_panel/employee_reg_delete.htm' , {"Employee":Employee})
 def Admin_panel_data_search(request):
     search = request.GET['search']
     employee_data = UserData.objects.filter(foreinkeyfield__foreinkeyfield__username=search)

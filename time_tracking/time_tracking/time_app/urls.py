@@ -20,7 +20,7 @@ urlpatterns = [
     path('User_registrion/',views.Admin_panel_Reg,name='Admin_panel_Reg'),
     path('employee_data/',views.Admin_panel_Data,name='Admin_panel_data'),
     path('Admin_panel_reg_search/',views.Admin_panel_reg_search,name='Admin_panel_reg_search'),
-    path('Admin_panel_user_update_data/<str:pk_id>/',views.Admin_panel_user_delete_data,name='Admin_panel_user_update_data'),
+    path('Admin_panel_user_update_data/<str:pk_id>/',views.Admin_panel_user_update_data,name='Admin_panel_user_update_data'),
     path('Admin_panel_user_delete_data/<str:pk>/',views.Admin_panel_user_delete_data,name='Admin_panel_user_delete_data'),
     path('Admin_panel_data_search/',views.Admin_panel_data_search,name='Admin_panel_data_search'),
     path('forget_password/',auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.htm',subject_template_name='registration/password_reset_subject.txt',email_template_name='registration/password_reset_email.html'),name='forget_password'),
