@@ -82,7 +82,7 @@ def register(request):
             messages.info(request,'password not matching')
             return redirect('register')
     else:
-        return render(request,'html_files/register.htm')
+        return render(request,'Admin_panel/Employee_registrion.htm')
 
          
 @login_required(login_url='login')   
@@ -189,44 +189,10 @@ def Admin_panel(request):
     return render(request,'Admin_panel/inbox.htm',{"employee_data":employee_data,'total_user':total_user,'total_employee_data':total_employee_data,'last_five':last_five})
 
 
-def Admin_panel_Reg(request):
+def Admin_panel_Reg(request):    
     Employee = User.objects.all()
-    return render(request,'Admin_panel/Employee_registrion.htm',{'Employee':Employee})
-    if request.method=='POST':
-        name = request.POST['name']
-        email = request.POST['email']
-        Employeeid = request.POST['empid']
-        password = request.POST['password']
-        password1 = request.POST['password1']
-        if password==password1:
-            if User.objects.filter(username=Employeeid).exists():
-                messages.info(request,'employee id already exists')
-                return redirect('register')
-            elif User.objects.filter(email=email).eobjectxists():
-                messages.info(request,'email already exists')
-                return  redirect('Admin_panel_Reg')
-            # elif not Employeeid.isupper():
-            #     messages.info(request,"Employeeid should be  uppercase")
-            #     return redirect('Admin_panel_Reg')
-            # elif not 'MOBTR' in Employeeid:
-            #     messages.info(request,"Employeeid should be in correct")
-            #     return redirect('Admin_panel_Reg')
-            # elif not 'geodesictechniques' in email:
-            #     messages.info(request,"email should be in correct format")
-            #     return redirect('Admin_panel_Reg')
-            # elif 'gmail' in email:
-            #     messages.info(request,"email should be in correct format")
-            #     return redirect('Admin_panel_Reg')
-            else:
-                user = User.objects.create_user(email=email,username=Employeeid,password=password,first_name=name)
-                user.save()
-                messages.success(request,'registration has been successfully completed '+name)
-                return redirect('Admin_panel_Reg')
-        else:
-            messages.info(request,'password not matching')
-            return redirect('Admin_panel_Reg')
-    else:
-        return render(request,'Admin_panel/Employee_registrion.htm')
+    conext = {'Employee':Employee}
+    return render(request,'Admin_panel/Employee_registrion.htm',conext)
 
 def Admin_panel_Data(request):
     employee_data = UserData.objects.all()
