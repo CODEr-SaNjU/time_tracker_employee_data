@@ -218,7 +218,7 @@ def Admin_panel_user_delete_data(request, pk):
     Employee = get_object_or_404(User,id=pk)
     if request.method == "POST":
         Employee.delete()
-        return redirect('Admin_panel_Reg')
+        return redirect('User_registrion')
     return render(request,'Admin_panel/employee_reg_delete.htm' , {"Employee":Employee})
 def Admin_panel_data_search(request):
     search = request.GET['search']

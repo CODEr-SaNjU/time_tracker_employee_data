@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('dashboard/',views.home,name='dashboard'),
     path('', views.login,name='login'),
-    path('/User_registrion/register/',views.register,name='register'),
+    path('User_registrion/register/',views.register,name='register'),
     path('logout/',views.logout,name='logout'),
     path("userdata_create_new/",views.userdata_create_new, name="userdata_create_new"),
     path('load-activity/', views.load_activity, name='ajax_load_activity'),
