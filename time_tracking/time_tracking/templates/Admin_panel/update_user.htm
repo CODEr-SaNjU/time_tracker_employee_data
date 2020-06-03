@@ -1,0 +1,87 @@
+{%  extends 'Admin_panel/inbox.htm' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static '/css/Employee_reg.css' %}">
+
+{% block content %}
+<br>
+<br>
+<div class="row">
+	<div class="col">
+        <div class="modal-body form_container">
+            <form action="register/" method="POST" class="form-signin">
+                {% csrf_token %}
+                <div class="form-label-group">
+                    <label for="inputName">Name</label>
+                    <input type="text" name="name" id="inputName" class="form-control" value="{{Employees.first_name}}" placeholder="Name" required autofocus autocomplete="off">
+                </div>
+                <br>
+                <div class="form-label-group">
+                    <label for="inputemail">Email Id</label>
+                    <input type="email" name="email" id="inputemail" class="form-control" value="{{Employees.email}}" placeholder="email" required autocomplete="off">
+                </div>
+                <br>
+                <div class="form-label-group">
+                    <label for="inputEmployeeid">Employee Username</label>
+                    <input type="text" name="empid" id="inputEmployeeid" class="form-control" value="{{Employees.username}}" placeholder="employee id Here"  autocomplete="off">
+                </div>
+                <br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="{{Employees.is_active}}">
+                    <label class="form-check-label" for="inlineCheckbox1">Active</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="{{Employees.is_staff}}">
+                    <label class="form-check-label" for="inlineCheckbox2">Staff Member</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="{{Employees.is_superuser}}">
+                    <label class="form-check-label" for="inlineCheckbox3">Super User</label>
+                </div>
+                <br>
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                        <div class="alert alert-danger" role="alert">&nbsp;{{ message }}</div></div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <div class="mt-4">
+                        <div class="custom-control custom-checkbox mb-3">
+                            <input type="checkbox" class="agree-term-input" id="agree-term" required>
+                            &nbsp;&nbsp;&nbsp;<label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                    </div>
+                    <button class="btn btn-lg btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">submit</button>
+                    <button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
+                </div>
+            </form>
+        </div>
+	</div>
+</div>
+<br>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>   
+<script>
+	  // Example starter JavaScript for disabling form submissions if there are invalid fields
+	  (function() {
+    'use strict';
+    window.addEventListener('load', function() {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('form-signin');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+
+</script>
+{% endblock %}

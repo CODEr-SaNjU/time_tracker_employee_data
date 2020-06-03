@@ -204,16 +204,8 @@ def Admin_panel_reg_search(request):
     return render(request,'Admin_panel/Employee_registrion.htm',{"Employee":Employee})
 
 def Admin_panel_user_update_data(request,pk_id):
-    obj = get_object_or_404(User,id=pk_id)                                   
-    if form.is_valid():
-        instance=form.save(commit=False)
-        instance.username = request.user
-        instance.save()
-        form.save()
-        messages.success(request,'data has been update successfully  ')
-        return redirect('Admin_panel_user_update_data')
-    return render(request,'Admin_panel/edit_user.htm',{'form':form})
-
+    Employees = User.objects.get(id=pk_id)
+    return render(request,'Admin_panel/update_user.htm',{'Employees':Employees})
 def Admin_panel_user_delete_data(request, pk):
     Employee = get_object_or_404(User,id=pk)
     if request.method == "POST":
