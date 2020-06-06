@@ -217,3 +217,5 @@ def Admin_panel_data_search(request):
     employee_data = UserData.objects.filter(foreinkeyfield__foreinkeyfield__username=search)
     return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
 
+    
+
