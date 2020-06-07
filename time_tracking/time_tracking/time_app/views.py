@@ -217,5 +217,23 @@ def Admin_panel_data_search(request):
     employee_data = UserData.objects.filter(foreinkeyfield__foreinkeyfield__username=search)
     return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
 
-    
+def Admin_panel_Activity(request):
+    return render(request,'Admin_panel/activity.htm')
 
+def Admin_panel_deprtmnt(request):
+    return render(request,'Admin_panel/deprtmnt.htm')
+
+def Admin_panel_enquiry_no(request):
+    return render(request,'Admin_panel/enquiry_no.htm')
+
+
+def Admin_panel_loction(request):
+    return render(request,'Admin_panel/loction.htm')
+
+
+def Admin_panel_project_enq(request):
+    return render(request,'Admin_panel/projct_enq.htm')
+
+
+def Admin_panel_name_of_project(request):
+    return render(request,'Admin_panel/name_of_project.htm')

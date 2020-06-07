@@ -1,0 +1,117 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vertibld Admin Panel</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
+
+</head>
+<body>
+	{%  include 'Admin_panel/Navbar.htm' %}
+	<div class="container-fluid">
+	{% block content %}
+	<br>
+	<br>
+<div class="row">
+	<div class="col">
+		<button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1220px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add User <i class="fa fa-user"></i> </button>
+			<div class="modal-body form_container">
+				<div class="container">
+					<div class="row">
+					  <div class="col">
+					  </div>
+					  <div class="col-6">
+							<form action="register/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
+								{% csrf_token %}
+								<div class="card card-body">
+									<div class="form-label-group"></div>
+									<div class="form-label-group">
+										<label for="inputName">Name</label>
+										<input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus autocomplete="off">
+									</div>
+									{% if messages %}
+									<div class="messages">
+										{% for message in messages %}
+										<div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+											<div class="alert alert-danger" role="alert">&nbsp;{{ message }}</div></div>
+										{% endfor %}
+									</div>
+									{% endif %}
+									<br>
+									<button class="btn btn-lg btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">submit</button>
+									<button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
+								</div>
+							</form>
+						</div>
+					  <div class="col">
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form method="GET" action="/Admin_panel_reg_search" class="form-inline my-2 my-lg-10">
+				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
+				<button class="btn btn-primary" type="submit">Search</button>
+			</form>
+		</div>
+	</div>
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table id="table" class="table table-hover table-sm table-dark"  style="color: #ffffff;">
+				<thead>
+					<tr>
+						{% csrf_token %}
+						<th scope="col">Employee UserName</th>
+						<th scope="col">Employee Email Address</th>
+						<th scope="col">Employee Name</th>
+						<th scope="col">Employee Staff Status</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for i in Employee %}
+					<tr>
+						<td>{{i.username}}</td>
+						<td>{{i.email}}</td>
+						<td>{{i.first_name}}</td>
+						<td>{{i.is_superuser}}</td>
+						<td><a href="{%url 'Admin_panel_user_update_data' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_user_delete_data' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>   
+<script>
+	$("#form-data").click(function(){
+        $("#form-data1").toggle();
+    });
+</script>
+{% endblock %}
+    </div>
+
+	
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>
