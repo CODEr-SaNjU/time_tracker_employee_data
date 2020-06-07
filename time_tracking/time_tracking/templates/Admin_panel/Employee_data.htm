@@ -8,25 +8,25 @@
 
 <div class="row">
 	<div class="col">
-		<button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Department</button>
+		<a href="{%url 'Admin_panel_deprtmnt'%}"><button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Department</button></a>
 	</div>
 	<div class="col">
-		<button class="btn btn-outline-info" id="formAct"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Activity</button>
+		<a href="{%url 'Admin_panel_Activity'%}"><button class="btn btn-outline-info" id="formAct"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Activity</button></a>
 	</div>
 	<div class="col">
-		<button class="btn btn-outline-info" id="formloct"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Location</button>
+		<a href="{%url 'Admin_panel_loction'%}"><button class="btn btn-outline-info" id="formloct"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Location</button></a>
 	</div>
 	<div class="col">
-		<button class="btn btn-outline-info" id="formpe"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Project Enquiry</button>
+		<a href="{%url 'Admin_panel_project_enq'%}"><button class="btn btn-outline-info" id="formpe"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Project Enquiry</button></a>
 	</div>
 	<div class="col">
-		<button class="btn btn-outline-info" id="formen"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Enquiry Number</button>
+		<a href="{%url 'Admin_panel_enquiry_no'%}"><button class="btn btn-outline-info" id="formen"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Enquiry Number</button></a>
 	</div>
 	<div class="col">
-		<button class="btn btn-outline-info" id="formnop"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Name of project</button>
+		<a href="{%url 'Admin_panel_name_of_project'%}"><button class="btn btn-outline-info" id="formnop"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Name of project</button></a>
 	</div>
 	<div class="col">
-		<button class="btn btn-outline-info" id="emp-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Employee Data</button>
+		<button class="btn btn-outline-info" id="emp-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Employee Data</button></a>
 		<div class="modal-body form-container">
 			<div class="container">
 				<div class="row">
@@ -52,10 +52,6 @@
 									<label for="inputPassword">Password</label>
 									<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" autocomplete="off" required>
 								</div>
-								<div class="form-label-group">
-									<label for="inputPassword1">Confirm Password</label>
-									<input type="password" id="inputPassword1" class="form-control" placeholder="Confirm Password" name="password1" autocomplete="off" required>
-								</div>
 								{% if messages %}
 								<div class="messages">
 									{% for message in messages %}
@@ -64,12 +60,7 @@
 									{% endfor %}
 								</div>
 								{% endif %}
-								<div class="mt-4">
-									<div class="custom-control custom-checkbox mb-3">
-										<input type="checkbox" class="agree-term-input" id="agree-term" required>
-										&nbsp;&nbsp;&nbsp;<label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in <a href="#" class="term-service">Terms of service</a></label>
-									</div>
-								</div>
+								<br>
 								<button class="btn btn-lg btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">submit</button>
 								<button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
 							</div>

@@ -17,7 +17,7 @@
     <br>
     <div class="row">
         <div class="col">
-            <button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1220px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Activity</button>
+            <button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1150px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Project Enquiry</button>
                 <div class="modal-body form_container">
                     <div class="container">
                         <div class="row">
@@ -27,10 +27,11 @@
                                   <form action="register/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
                                     {% csrf_token %}
                                     <div class="card card-body">
+                                        <h5 style="text-align: center;">Add Project Enquiry</h5>
                                         <div class="form-label-group"></div>
                                         <div class="form-label-group">
-                                            <label for="inputName">Name</label>
-                                            <input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus autocomplete="off">
+                                            <label for="inputproect_enq">Project Enquiry</label>
+                                            <input type="text" name="Project_enq" id="inputproect_enq" class="form-control" placeholder="Project Enquiry" required autofocus autocomplete="off">
                                         </div>
                                         {% if messages %}
                                         <div class="messages">
@@ -75,10 +76,8 @@
                     <thead>
                         <tr>
                             {% csrf_token %}
-                            <th scope="col">Employee UserName</th>
-                            <th scope="col">Employee Email Address</th>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Employee Staff Status</th>
+                            <th scope="col">Sr No.</th>
+                            <th scope="col">Add Project Enquiry</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -87,8 +86,6 @@
                         <tr>
                             <td>{{i.username}}</td>
                             <td>{{i.email}}</td>
-                            <td>{{i.first_name}}</td>
-                            <td>{{i.is_superuser}}</td>
                             <td><a href="{%url 'Admin_panel_user_update_data' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_user_delete_data' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
                         </tr>
                         {% endfor %}

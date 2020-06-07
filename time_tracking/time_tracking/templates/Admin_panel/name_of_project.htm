@@ -17,7 +17,7 @@
     <br>
     <div class="row">
         <div class="col">
-            <button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1220px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Activity</button>
+            <button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1150px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Name of Project</button>
                 <div class="modal-body form_container">
                     <div class="container">
                         <div class="row">
@@ -29,16 +29,18 @@
                                     <div class="card card-body">
                                         <div class="form-label-group"></div>
                                         <div class="form-label-group">
-                                            <label for="inputName">Name</label>
-                                            <input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus autocomplete="off">
+                                            <label for="inputProjectEnquiry">Project Enquiry</label>
+                                            <input type="text" name="Project_Enquiry" id="inputProjectEnquiry" class="form-control" placeholder="Project Enquiry" required autofocus autocomplete="off">
                                         </div>
+                                        <br>
                                         <div class="form-label-group">
-                                            <label for="inputemail">Email Id</label>
-                                            <input type="email" name="email" id="inputemail" class="form-control" placeholder="email" required autocomplete="off">
+                                            <label for="inputenq_number">Enquiry Number</label>
+                                            <input type="number" name="enq_number" id="inputenq_number" class="form-control" placeholder="Enquiry Number" required autocomplete="off">
                                         </div>
+                                        <br>
                                         <div class="form-label-group">
-                                            <label for="inputemail">Email Id</label>
-                                            <input type="email" name="email" id="inputemail" class="form-control" placeholder="email" required autocomplete="off">
+                                            <label for="inputname_of_project">Name of Project</label>
+                                            <input type="text" name="email" id="inputname_of_project" class="form-control" placeholder="Name of Project" required autocomplete="off">
                                         </div>
                                         {% if messages %}
                                         <div class="messages">
@@ -83,10 +85,8 @@
                     <thead>
                         <tr>
                             {% csrf_token %}
-                            <th scope="col">Employee UserName</th>
-                            <th scope="col">Employee Email Address</th>
-                            <th scope="col">Employee Name</th>
-                            <th scope="col">Employee Staff Status</th>
+                            <th scope="col">Sr Number</th>
+                            <th scope="col">name of Project</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -95,8 +95,6 @@
                         <tr>
                             <td>{{i.username}}</td>
                             <td>{{i.email}}</td>
-                            <td>{{i.first_name}}</td>
-                            <td>{{i.is_superuser}}</td>
                             <td><a href="{%url 'Admin_panel_user_update_data' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_user_delete_data' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
                         </tr>
                         {% endfor %}
