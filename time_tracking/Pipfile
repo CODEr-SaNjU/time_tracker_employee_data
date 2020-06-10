@@ -6,17 +6,14 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-django = "*"
-django-crispy-forms = "*"
-psycopg2 = "*"
 djangorestframework = "*"
+psycopg2-binary = "*"
+django = "*"
 django-cors-headers = "*"
 django-allauth = "*"
-pylint = "*"
-pylint-django = "*"
+django-crispy-forms = "*"
 xlwt = "*"
-rest-auth = "*"
-crispy-forms = "*"
+pylint = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"
