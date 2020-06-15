@@ -8,7 +8,7 @@ from django.contrib import auth
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import UserData,Department ,Activity
-from .models import Enq_No,Name_of_Project,Project_Enq
+from .models import Enq_No,Name_of_Project,Project_Enq,Location
 from .forms import UserDataForm
 from django.contrib.auth.decorators import login_required,permission_required
 from django.utils.decorators import method_decorator
@@ -16,7 +16,6 @@ from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user ,allowed_user
 from django.db.models import F
 import datetime
-import xlwt
 
 @unauthenticated_user
 def login(request):
@@ -218,22 +217,33 @@ def Admin_panel_data_search(request):
     return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
 
 def Admin_panel_Activity(request):
-    return render(request,'Admin_panel/activity.htm')
+    activity = Activity.objects.all()
+    return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
 def Admin_panel_deprtmnt(request):
-    return render(request,'Admin_panel/deprtmnt.htm')
+    deprmnt = Department.objects.all()
+    return render(request,'Admin_panel/deprtmnt.htm',{"deprmnt":deprmnt})
+
 
 def Admin_panel_enquiry_no(request):
-    return render(request,'Admin_panel/enquiry_no.htm')
+    enquiry_no = Enq_No.objects.all()
+    return render(request,'Admin_panel/enquiry_no.htm',{"enquiry_no":enquiry_no})
 
 
 def Admin_panel_loction(request):
-    return render(request,'Admin_panel/loction.htm')
+    loction = Location.objects.all()
+    return render(request,'Admin_panel/loction.htm',{"loction":loction})
 
 
 def Admin_panel_project_enq(request):
-    return render(request,'Admin_panel/projct_enq.htm')
+    project_enq = Project_Enq.objects.all()
+    return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
 
 
 def Admin_panel_name_of_project(request):
-    return render(request,'Admin_panel/name_of_project.htm')
+    name_of_project = Name_of_Project.objects.all()
+    return render(request,'Admin_panel/name_of_project.htm',{"name_of_project":name_of_project})
+
+def Admin_panel_employee_data(request):
+    employee_data = UserData.objects.all()
+    return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})

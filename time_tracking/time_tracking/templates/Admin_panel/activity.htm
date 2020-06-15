@@ -88,12 +88,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for i in Employee %}
+                        {% for i in activity %}
                         <tr>
-                            <td>{{i.username}}</td>
-                            <td>{{i.email}}</td>
-                            <td>{{i.first_name}}</td>
-                            <td>{{i.is_superuser}}</td>
+                            <td>{{i.id}}</td>
+                            <td>{{i.department}}</td>
+                            <td>{{i.activity}}</td>
                             <td><a href="{%url 'Admin_panel_user_update_data' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_user_delete_data' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
                         </tr>
                         {% endfor %}

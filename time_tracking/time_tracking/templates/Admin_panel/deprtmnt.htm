@@ -25,14 +25,14 @@
 						  <div class="col">
 						  </div>
 						  <div class="col-6">
-								<form action="register/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
+								<form action="" method="POST" id="form-data1" class="form-signin" style="display: none;" >
 									{% csrf_token %}
 									<div class="card card-body">
 										<h5 style="text-align: center;">Add Department</h5>
 										<div class="form-label-group"></div>
 										<div class="form-label-group">
-											<label for="inputName">Name</label>
-											<input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus autocomplete="off">
+											<label for="inputName">Department</label>
+											<input type="text" name="Department" id="inputDepartment" class="form-control" placeholder="Department" required autofocus autocomplete="off">
 										</div>
 										{% if messages %}
 										<div class="messages">
@@ -84,12 +84,10 @@
 						</tr>
 					</thead>
 					<tbody>
-						{% for i in Employee %}
+						{% for i in deprmnt %}
 						<tr>
-							<td>{{i.username}}</td>
-							<td>{{i.email}}</td>
-							<td>{{i.first_name}}</td>
-							<td>{{i.is_superuser}}</td>
+							<td>{{i.id}}</td>
+							<td>{{i.department}}</td>
 							<td><a href="{%url 'Admin_panel_user_update_data' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_user_delete_data' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
 						</tr>
 						{% endfor %}
