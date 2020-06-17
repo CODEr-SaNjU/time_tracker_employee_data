@@ -220,30 +220,58 @@ def Admin_panel_Activity(request):
     activity = Activity.objects.all()
     return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
+def Admin_panel_Activity_Add(request):
+    pass
+
 def Admin_panel_deprtmnt(request):
     deprmnt = Department.objects.all()
     return render(request,'Admin_panel/deprtmnt.htm',{"deprmnt":deprmnt})
+
+def Admin_panel_deprtmnt_Add(request):
+    department = request.POST["department"]
+    deprtmnt_Add = Department(department=department)
+    deprtmnt_Add.save()
+    return redirect('Admin_panel_deprtmnt')
 
 
 def Admin_panel_enquiry_no(request):
     enquiry_no = Enq_No.objects.all()
     return render(request,'Admin_panel/enquiry_no.htm',{"enquiry_no":enquiry_no})
 
+def Admin_panel_enquiry_no_Add(request):
+    pass
 
 def Admin_panel_loction(request):
     loction = Location.objects.all()
     return render(request,'Admin_panel/loction.htm',{"loction":loction})
 
+def Admin_panel_loction_Add(request):
+    location = request.POST["location"]
+    location_Add = Location(location=location)
+    location_Add.save()
+    return redirect('Admin_panel_loction')
 
 def Admin_panel_project_enq(request):
     project_enq = Project_Enq.objects.all()
     return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
 
+def Admin_panel_project_enq_Add(request):
+    projectEnq = request.POST["projectEnq"]
+    projectEnq_Add = Project_Enq(projectEnq=projectEnq)
+    projectEnq_Add.save()
+    return redirect('Admin_panel_project_enq')
 
 def Admin_panel_name_of_project(request):
     name_of_project = Name_of_Project.objects.all()
     return render(request,'Admin_panel/name_of_project.htm',{"name_of_project":name_of_project})
 
+def Admin_panel_name_of_project_Add(request):
+    pass
+
 def Admin_panel_employee_data(request):
     employee_data = UserData.objects.all()
     return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
+
+
+def Admin_panel_employee_data_Add(request):
+    pass

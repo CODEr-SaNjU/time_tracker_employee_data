@@ -17,21 +17,21 @@
     <br>
     <div class="row">
         <div class="col">
-            <button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1090px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Project Enquiry</button>
+            <button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1050px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Project Enquiry</button>
                 <div class="modal-body form_container">
                     <div class="container">
                         <div class="row">
                           <div class="col">
                           </div>
                           <div class="col-6">
-                                  <form action="register/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
+                                  <form action="/Admin_panel/project_enq/Add/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
                                     {% csrf_token %}
                                     <div class="card card-body">
                                         <h5 style="text-align: center;">Add Project Enquiry</h5>
                                         <div class="form-label-group"></div>
                                         <div class="form-label-group">
                                             <label for="inputproect_enq">Project Enquiry</label>
-                                            <input type="text" name="Project_enq" id="inputproect_enq" class="form-control" placeholder="Project Enquiry" required autofocus autocomplete="off">
+                                            <input type="text" name="projectEnq" id="inputproect_enq" class="form-control" placeholder="Project Enquiry" required autofocus autocomplete="off">
                                         </div>
                                         {% if messages %}
                                         <div class="messages">

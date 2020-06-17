@@ -25,14 +25,14 @@
 						  <div class="col">
 						  </div>
 						  <div class="col-6">
-								<form action="" method="POST" id="form-data1" class="form-signin" style="display: none;" >
+								<form action="/Admin_panel/deprtmnt/Add/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
 									{% csrf_token %}
 									<div class="card card-body">
 										<h5 style="text-align: center;">Add Department</h5>
 										<div class="form-label-group"></div>
 										<div class="form-label-group">
 											<label for="inputName">Department</label>
-											<input type="text" name="Department" id="inputDepartment" class="form-control" placeholder="Department" required autofocus autocomplete="off">
+											<input type="text" name="department" id="inputDepartment" class="form-control" placeholder="Department" required autofocus autocomplete="off">
 										</div>
 										{% if messages %}
 										<div class="messages">
