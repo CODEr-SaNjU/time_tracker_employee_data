@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user ,allowed_user
 from django.db.models import F
 import datetime
+from django.db.models import Q
 
 @unauthenticated_user
 def login(request):
@@ -222,6 +223,11 @@ def Admin_panel_Activity(request):
 
 def Admin_panel_Activity_Add(request):
     pass
+
+def Admin_panel_Activity_search(request):
+    search = request.GET['search']
+    activity = Activity.objects.filter(Q(activity__icontains=search)|Q(department__icontains=search))
+    return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
 def Admin_panel_deprtmnt(request):
     deprmnt = Department.objects.all()
