@@ -59,7 +59,7 @@
 						<td>{{i.end_time}}</td>
 						<td>{{i.submit_data}}</td>
 						<td>{{i.hours}}</td>
-						<td><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button> &nbsp;&nbsp;<button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button> </td>
+						<td><a href="{%url 'Admin_panel_Data_update' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_Data_Delete' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
 					</tr>
 				{% endfor %}
 				</tbody>

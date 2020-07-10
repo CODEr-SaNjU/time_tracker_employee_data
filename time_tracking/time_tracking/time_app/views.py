@@ -14,9 +14,8 @@ from django.contrib.auth.decorators import login_required,permission_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user ,allowed_user
-from django.db.models import F
+from django.db.models import F ,Q
 import datetime
-from django.db.models import Q
 
 @unauthenticated_user
 def login(request):
@@ -82,7 +81,7 @@ def register(request):
             messages.info(request,'password not matching')
             return redirect('register')
     else:
-        return render(request,'Admin_panel/Employee_registrion.htm')
+        return render(request,'html_files/register.htm')
 
          
 @login_required(login_url='login')   
@@ -194,9 +193,50 @@ def Admin_panel_Reg(request):
     conext = {'Employee':Employee}
     return render(request,'Admin_panel/Employee_registrion.htm',conext)
 
+def Admin_panel_User_Add(request):
+    if request.method=='POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        Employeeid = request.POST['empid']
+        password = request.POST['password']
+        password1 = request.POST['password1']
+        if password==password1:
+            if User.objects.filter(username=Employeeid).exists():
+                messages.info(request,'employee id already exists')
+                return redirect('register')
+            elif User.objects.filter(email=email).exists():
+                messages.info(request,'email already exists')
+                return  redirect('register')
+            # elif not Employeeid.isupper():
+            #     messages.info(request,"Employeeid should be  uppercase")
+            #     return redirect('register')
+            # elif not 'MOBTR' in Employeeid:
+            #     messages.info(request,"Employeeid should be in correct")
+            #     return redirect('register')
+            # elif not 'geodesictechniques' in email:
+            #     messages.info(request,"email should be in correct format")
+            #     return redirect('register')
+            # elif 'gmail' in email:
+            #     messages.info(request,"email should be in correct format")
+            #     return redirect('register')
+            else:
+                user = User.objects.create_user(email=email,username=Employeeid,password=password,first_name=name)
+                user.save()
+                messages.success(request,'registration has been successfully completed '+name)
+                return redirect('Admin_panel_User_Add')
+        else:
+            messages.info(request,'password not matching')
+            return redirect('Admin_panel_User_Add')
+    else:
+        return render(request,'Admin_panel/Employee_registrion.htm')
+
+
+
 def Admin_panel_Data(request):
     employee_data = UserData.objects.all()
     return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
+
+
 
 def Admin_panel_reg_search(request):
     search = request.GET['search']
@@ -206,12 +246,14 @@ def Admin_panel_reg_search(request):
 def Admin_panel_user_update_data(request,pk_id):
     Employees = User.objects.get(id=pk_id)
     return render(request,'Admin_panel/update_user.htm',{'Employees':Employees})
+
 def Admin_panel_user_delete_data(request, pk):
     Employee = get_object_or_404(User,id=pk)
     if request.method == "POST":
         Employee.delete()
         return redirect('User_registrion')
     return render(request,'Admin_panel/employee_reg_delete.htm' , {"Employee":Employee})
+
 def Admin_panel_data_search(request):
     search = request.GET['search']
     employee_data = UserData.objects.filter(foreinkeyfield__foreinkeyfield__username=search)
@@ -226,7 +268,7 @@ def Admin_panel_Activity_Add(request):
 
 def Admin_panel_Activity_search(request):
     search = request.GET['search']
-    activity = Activity.objects.filter(Q(activity__icontains=search)|Q(department__icontains=search))
+    activity = Activity.objects.filter(Q(activity__icontains=search))
     return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
 def Admin_panel_deprtmnt(request):
@@ -239,6 +281,17 @@ def Admin_panel_deprtmnt_Add(request):
     deprtmnt_Add.save()
     return redirect('Admin_panel_deprtmnt')
 
+def Admin_panel_deprtmnt_Update(request,pk_id):
+    deprmnt = Department.objects.get(id=pk_id)
+    return render(request,'Admin_panel/deprtmnt.htm',{'deprmnt':deprmnt})
+    
+
+def Admin_panel_deprtmnt_Delete(request,pk):
+    deprmnt = get_object_or_404(Department,id=pk)
+    if request.method == "POST":
+        deprmnt.delete()
+        return redirect('Admin_panel_deprtmnt')
+    return render(request,'Admin_panel/deprtmnt_delete.htm' , {"deprmnt":deprmnt})
 
 def Admin_panel_enquiry_no(request):
     enquiry_no = Enq_No.objects.all()
@@ -277,6 +330,29 @@ def Admin_panel_name_of_project_Add(request):
 def Admin_panel_employee_data(request):
     employee_data = UserData.objects.all()
     return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
+
+
+def Admin_panel_Data_update(request,pk_id):
+    obj = get_object_or_404(UserData,id=pk_id)
+    form = UserDataForm(request.POST or None,instance=obj)
+    if form.is_valid():
+        instance=form.save(commit=False)
+        instance.username = request.user
+        instance.save()
+        form.save()
+        return redirect('user_time')
+        messages.success(request,'data has been update successfully  ')
+        return redirect('user_update_data')
+    return render(request,'html_files/user_update_data.htm',{'form':form})
+   
+
+def Admin_panel_Data_Delete(request,pk):
+    Employee = get_object_or_404(UserData,id=pk)
+    if request.method == "POST":
+        Employee.delete()
+        return redirect('Admin_panel_data')
+    return render(request,'Admin_panel/Employee_data_delete.htm' , {"Employee":Employee})
+
 
 
 def Admin_panel_employee_data_Add(request):

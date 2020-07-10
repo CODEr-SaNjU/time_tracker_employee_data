@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path('dashboard/',views.home,name='dashboard'),
     path('', views.login,name='login'),
-    path('User_registrion/register/',views.register,name='register'),
+    path('register/',views.register,name='register'),
     path('logout/',views.logout,name='logout'),
     path("userdata_create_new/",views.userdata_create_new, name="userdata_create_new"),
     path('load-activity/', views.load_activity, name='ajax_load_activity'),
@@ -19,12 +19,16 @@ urlpatterns = [
     path('Admin_panel/',views.Admin_panel,name='Admin_panel'),
     path('Admin_panel/User_registrion/',views.Admin_panel_Reg,name='User_registrion'),
     path('Admin_panel/employee_data/',views.Admin_panel_Data,name='Admin_panel_data'),
+    path('Admin_panel/employee_data//Update/<str:pk_id>',views.Admin_panel_Data_update,name='Admin_panel_Data_update'),
+    path('Admin_panel/employee_data/Delete/<str:pk>/',views.Admin_panel_Data_Delete,name='Admin_panel_Data_Delete'),
     path('Admin_panel_reg_search/',views.Admin_panel_reg_search,name='Admin_panel_reg_search'),
-    path('Admin_panel_user_update_data/<str:pk_id>/',views.Admin_panel_user_update_data,name='Admin_panel_user_update_data'),
-    path('Admin_panel_user_delete_data/<str:pk>/',views.Admin_panel_user_delete_data,name='Admin_panel_user_delete_data'),
+    path('Admin_panel/user/update_data/<str:pk_id>/',views.Admin_panel_user_update_data,name='Admin_panel_user_update_data'),
+    path('Admin_panel/user/delete_data/<str:pk>/',views.Admin_panel_user_delete_data,name='Admin_panel_user_delete_data'),
     path('Admin_panel_data_search/',views.Admin_panel_data_search,name='Admin_panel_data_search'),
     path('Admin_panel/employee_data/Activity/',views.Admin_panel_Activity,name='Admin_panel_Activity'),
     path('Admin_panel/employee_data/deprtmnt/',views.Admin_panel_deprtmnt,name='Admin_panel_deprtmnt'),
+    path('Admin_panel/employee_data/deprtmnt/Update/<str:pk_id>/',views.Admin_panel_deprtmnt_Update,name='Admin_panel_deprtmnt_Update'),
+    path('Admin_panel/employee_data/deprtmnt/Delete/<str:pk>/',views.Admin_panel_deprtmnt_Delete,name='Admin_panel_deprtmnt_Delete'),
     path('Admin_panel/employee_data/enquiry_no/',views.Admin_panel_enquiry_no,name='Admin_panel_enquiry_no'),
     path('Admin_panel/employee_data/location/',views.Admin_panel_loction,name='Admin_panel_loction'),
     path('Admin_panel/employee_data/name_of_project/',views.Admin_panel_name_of_project,name='Admin_panel_name_of_project'),
@@ -37,7 +41,8 @@ urlpatterns = [
     path('Admin_panel/employee_data/deprtmnt/Add/',views.Admin_panel_deprtmnt_Add,name='Admin_panel_deprtmnt_Add'),
     path('Admin_panel/employee_data/loction/Add/',views.Admin_panel_loction_Add,name='Admin_panel_loction_Add'),
     path('Admin_panel/employee_data/project_enq/Add/',views.Admin_panel_project_enq_Add,name='Admin_panel_project_enq_Add'),
-    path('Admin_panel/employee_data/Activity/Activity_search/',views.Admin_panel_Activity_search,name='Admin_panel_Activity_search')
+    path('Admin_panel/employee_data/Activity/Activity_search/',views.Admin_panel_Activity_search,name='Admin_panel_Activity_search'),
+    path('Admin_panel/User_registrion/Add/',views.Admin_panel_User_Add,name='Admin_panel_User_Add'),
 
 ]
 
