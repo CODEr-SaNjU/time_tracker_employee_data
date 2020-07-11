@@ -285,6 +285,11 @@ def Admin_panel_deprtmnt_Update(request,pk_id):
     deprmnt = Department.objects.get(id=pk_id)
     return render(request,'Admin_panel/deprtmnt.htm',{'deprmnt':deprmnt})
     
+def Admin_panel_deprtmnt_search(request):
+    search = request.GET['search']
+    deprmnt =Department.objects.filter(department__icontains=search)
+    return render(request,'Admin_panel/deprtmnt.htm',{"deprmnt":deprmnt})
+
 
 def Admin_panel_deprtmnt_Delete(request,pk):
     deprmnt = get_object_or_404(Department,id=pk)
@@ -309,6 +314,9 @@ def Admin_panel_loction_Add(request):
     location_Add = Location(location=location)
     location_Add.save()
     return redirect('Admin_panel_loction')
+
+def Admin_panel_loction_search(request):
+    pass
 
 def Admin_panel_project_enq(request):
     project_enq = Project_Enq.objects.all()
