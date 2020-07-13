@@ -65,8 +65,8 @@
 <div class="row">
 	<div class="col">
 		<div class="card card-body">
-			<form method="GET" action="/Admin_panel_reg_search" class="form-inline my-2 my-lg-10">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
+			<form method="GET" action="/Admin_panel/employee_data/enquiry_no/Search/" class="form-inline my-2 my-lg-10">
+				<input class="form-control mr-sm-2" type="number" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
 				<button class="btn btn-primary" type="submit">Search</button>
 			</form>
 		</div>
@@ -91,7 +91,7 @@
 					<tr>
 						<td>{{i.id}}</td>
 						<td>{{i.enq_no}}</td>
-						<td><a href="{%url 'Admin_panel_user_update_data' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_user_delete_data' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
+						<td><a href="{%url 'Admin_panel_enquiry_no_Update' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_enquiry_no_Delete' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
 					</tr>
 					{% endfor %}
 				</tbody>

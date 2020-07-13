@@ -310,12 +310,32 @@ def Admin_panel_deprtmnt_Delete(request,pk):
         return redirect('Admin_panel_deprtmnt')
     return render(request,'Admin_panel/deprtmnt_delete.htm' , {"deprmnt":deprmnt})
 
+
 def Admin_panel_enquiry_no(request):
     enquiry_no = Enq_No.objects.all()
     return render(request,'Admin_panel/enquiry_no.htm',{"enquiry_no":enquiry_no})
 
+
+def Admin_panel_enquiry_no_Search(request):
+    search = request.GET['search']
+    enquiry_no =Enq_No.objects.filter(enq_no__icontains=search)
+    return render(request,'Admin_panel/enquiry_no.htm',{"enquiry_no":enquiry_no})
+
+
+def Admin_panel_enquiry_no_Update(request):
+    pass
+
+def Admin_panel_enquiry_no_Delete(request,pk):
+    enquiry_no = get_object_or_404(Enq_No,id=pk)
+    if request.method == "POST":
+        enquiry_no.delete()
+        return redirect('Admin_panel_enquiry_no')
+    return render(request,'Admin_panel/enquiry_no_delete.htm' , {"enquiry_no":enquiry_no})
+
 def Admin_panel_enquiry_no_Add(request):
     pass
+
+
 
 def Admin_panel_loction(request):
     loction = Location.objects.all()
@@ -382,6 +402,23 @@ def Admin_panel_name_of_project(request):
 
 def Admin_panel_name_of_project_Add(request):
     pass
+
+def Admin_panel_name_of_project_Update(request):
+    pass
+
+def Admin_panel_name_of_project_Delete(request,pk):
+    name_of_project = get_object_or_404(Name_of_Project,id=pk)
+    if request.method == "POST":
+        name_of_project.delete()
+        return redirect('Admin_panel_name_of_project')
+    return render(request,'Admin_panel/name_of_project_delete.htm' ,{"name_of_project":name_of_project})
+
+
+def Admin_panel_name_of_project_Search(request):
+    search = request.GET['search']
+    name_of_project = Name_of_Project.objects.filter(name_of_project__icontains=search)
+    return render(request,'Admin_panel/name_of_project.htm',{"name_of_project":name_of_project})
+
 
 def Admin_panel_employee_data(request):
     employee_data = UserData.objects.all()
