@@ -19,22 +19,22 @@ urlpatterns = [
     path('Admin_panel/',views.Admin_panel,name='Admin_panel'),
 
 
-    path('Admin_panel/User_registrion/',views.Admin_panel_Reg,name='User_registrion'),
-    path('Admin_panel/User_registrion/Add/',views.Admin_panel_User_Add,name='Admin_panel_User_Add'),
-
+    path('Admin_panel/User/',views.Admin_panel_Reg,name='User_registrion'),
+    path('Admin_panel/User/Add/',views.Admin_panel_User_Add,name='Admin_panel_User_Add'),
+    path('Admin_panel/User/search/',views.Admin_panel_reg_search,name='Admin_panel_reg_search'),
+    path('Admin_panel/user/Update/<str:pk_id>/',views.Admin_panel_user_update_data,name='Admin_panel_user_update_data'),
+    path('Admin_panel/user/Delete/<str:pk>/',views.Admin_panel_user_delete_data,name='Admin_panel_user_delete_data'),
 
     path('Admin_panel/employee_data/',views.Admin_panel_Data,name='Admin_panel_data'),
-    path('Admin_panel/employee_data//Update/<str:pk_id>',views.Admin_panel_Data_update,name='Admin_panel_Data_update'),
+    path('Admin_panel/employee_data/Update/<str:pk_id>',views.Admin_panel_Data_update,name='Admin_panel_Data_update'),
     path('Admin_panel/employee_data/Delete/<str:pk>/',views.Admin_panel_Data_Delete,name='Admin_panel_Data_Delete'),
+ 
 
 
-    path('Admin_panel_reg_search/',views.Admin_panel_reg_search,name='Admin_panel_reg_search'),
-
-    path('Admin_panel/user/update_data/<str:pk_id>/',views.Admin_panel_user_update_data,name='Admin_panel_user_update_data'),
-    path('Admin_panel/user/delete_data/<str:pk>/',views.Admin_panel_user_delete_data,name='Admin_panel_user_delete_data'),
 
 
-    path('Admin_panel_data_search/',views.Admin_panel_data_search,name='Admin_panel_data_search'),
+
+    path('Admin_panel/employee_data/search/',views.Admin_panel_data_search,name='Admin_panel_data_search'),
     
     path('Admin_panel/employee_data/Activity/',views.Admin_panel_Activity,name='Admin_panel_Activity'),
     path('Admin_panel/employee_data/Activity/Delete/<str:pk>/',views.Admin_panel_Activity_Delete,name='Admin_panel_Activity_Delete'),
@@ -80,6 +80,7 @@ urlpatterns = [
 
 
     path('Admin_panel/employee_data/employee_data/',views.Admin_panel_employee_data,name='Admin_panel_employee_data'),
+    path('Admin_panel/employee_data/employee_data/search/',views.Admin_panel_employee_data_search,name='Admin_panel_employee_data_search'),
     path('forget_password/',auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.htm',subject_template_name='registration/password_reset_subject.txt',email_template_name='registration/password_reset_email.html'),name='forget_password'),
     path("password_reset/done",auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),name='password_reset_confirm'),

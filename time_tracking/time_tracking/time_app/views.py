@@ -203,10 +203,10 @@ def Admin_panel_User_Add(request):
         if password==password1:
             if User.objects.filter(username=Employeeid).exists():
                 messages.info(request,'employee id already exists')
-                return redirect('register')
+                return redirect('Admin_panel_User_Add')
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'email already exists')
-                return  redirect('register')
+                return  redirect('Admin_panel_User_Add')
             # elif not Employeeid.isupper():
             #     messages.info(request,"Employeeid should be  uppercase")
             #     return redirect('register')
@@ -223,12 +223,12 @@ def Admin_panel_User_Add(request):
                 user = User.objects.create_user(email=email,username=Employeeid,password=password,first_name=name)
                 user.save()
                 messages.success(request,'registration has been successfully completed '+name)
-                return redirect('Admin_panel_User_Add')
+                return redirect('User_registrion')
         else:
             messages.info(request,'password not matching')
             return redirect('Admin_panel_User_Add')
     else:
-        return render(request,'Admin_panel/Employee_registrion.htm')
+        return redirect('User_registrion')
 
 
 
@@ -256,7 +256,7 @@ def Admin_panel_user_delete_data(request, pk):
 
 def Admin_panel_data_search(request):
     search = request.GET['search']
-    employee_data = UserData.objects.filter(foreinkeyfield__foreinkeyfield__username=search)
+    employee_data = UserData.objects.filter(activity__activity=search)
     return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
 
 def Admin_panel_Activity(request):
@@ -424,6 +424,10 @@ def Admin_panel_employee_data(request):
     employee_data = UserData.objects.all()
     return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
 
+def Admin_panel_employee_data_search(request):
+    search = request.GET['search']
+    employee_data = UserData.objects.filter(activity__activity=search)
+    return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
 
 def Admin_panel_Data_update(request,pk_id):
     obj = get_object_or_404(UserData,id=pk_id)
