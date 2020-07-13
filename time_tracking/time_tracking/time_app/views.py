@@ -271,6 +271,18 @@ def Admin_panel_Activity_search(request):
     activity = Activity.objects.filter(Q(activity__icontains=search))
     return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
+def Admin_panel_Activity_Delete(request,pk):
+    activity = get_object_or_404(Activity,id=pk)
+    if request.method == "POST":
+        activity.delete()
+        return redirect('Admin_panel_Activity')
+    return render(request,'Admin_panel/activity_delete.htm' , {"activity":activity})
+
+
+def Admin_panel_Activity_Update(request,pk):
+    pass
+
+
 def Admin_panel_deprtmnt(request):
     deprmnt = Department.objects.all()
     return render(request,'Admin_panel/deprtmnt.htm',{"deprmnt":deprmnt})
@@ -316,11 +328,47 @@ def Admin_panel_loction_Add(request):
     return redirect('Admin_panel_loction')
 
 def Admin_panel_loction_search(request):
+    search = request.GET['search']
+    loction = Location.objects.filter(Q(location__icontains=search))
+    return render(request,'Admin_panel/loction.htm',{"loction":loction})
+
+
+
+def Admin_panel_loction_Delete(request,pk):
+    loction = get_object_or_404(Location,id=pk)
+    if request.method == "POST":
+        loction.delete()
+        return redirect('Admin_panel_loction')
+    return render(request,'Admin_panel/loction_delete.htm' , {"loction":loction})
+    
+
+
+def Admin_panel_loction_Update(request):
     pass
+
+
 
 def Admin_panel_project_enq(request):
     project_enq = Project_Enq.objects.all()
     return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
+
+def Admin_panel_project_enq_Search(request):
+    search = request.GET['search']
+    project_enq = Project_Enq.objects.filter(projectEnq__icontains=search)
+    return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
+
+def Admin_panel_project_enq_Update(request):
+    pass
+
+
+
+def Admin_panel_project_enq_Delete(request,pk):
+    project_enq = get_object_or_404(Project_Enq,id=pk)
+    if request.method == "POST":
+        project_enq.delete()
+        return redirect('Admin_panel_project_enq')
+    return render(request,'Admin_panel/project_enq_delete.htm' ,{"project_enq":project_enq})
+
 
 def Admin_panel_project_enq_Add(request):
     projectEnq = request.POST["projectEnq"]
