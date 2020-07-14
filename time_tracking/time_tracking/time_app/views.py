@@ -280,7 +280,8 @@ def Admin_panel_Activity_Delete(request,pk):
 
 
 def Admin_panel_Activity_Update(request,pk):
-    pass
+    activity = Activity.objects.get(id=pk_id)
+    return render(request,'Admin_panel/deprtmnt_update.htm',{'activity':activity})
 
 
 def Admin_panel_deprtmnt(request):
@@ -295,7 +296,7 @@ def Admin_panel_deprtmnt_Add(request):
 
 def Admin_panel_deprtmnt_Update(request,pk_id):
     deprmnt = Department.objects.get(id=pk_id)
-    return render(request,'Admin_panel/deprtmnt.htm',{'deprmnt':deprmnt})
+    return render(request,'Admin_panel/deprtmnt_update.htm',{'deprmnt':deprmnt})
     
 def Admin_panel_deprtmnt_search(request):
     search = request.GET['search']
