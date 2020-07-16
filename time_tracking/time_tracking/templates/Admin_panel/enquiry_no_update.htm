@@ -16,11 +16,16 @@
             <form action="/Admin_panel/employee_data/deprtmnt/Add/" method="POST" id="form-data1" class="form-signin">
               {% csrf_token %}
               <div class="card card-body">
-                <h5 style="text-align: center;">Update Department</h5>
+                <h5 style="text-align: center;">Update Enquiry Number</h5>
                 <div class="form-label-group"></div>
                 <div class="form-label-group">
-                  <label for="inputName">Department</label>
-                  <input type="text" name="department" id="inputDepartment" class="form-control" value="{{deprmnt}}" placeholder="Department" required autofocus autocomplete="off">
+                  <label for="inputEnquiry">Project Enquiry</label>
+                  <input type="text" name="Enquiry" id="inputEnquiry" class="form-control" placeholder="Project Enquiry" required autofocus autocomplete="off">
+                </div>
+                <br>
+                <div class="form-label-group">
+                  <label for="inputEnquirynumber">Enquiry Number</label>
+                  <input type="text" name="Enquirynumber" id="inputEnquirynumber" class="form-control" placeholder="Enquiry Number" required  autocomplete="off">
                 </div>
                 {% if messages %}
                 <div class="messages">

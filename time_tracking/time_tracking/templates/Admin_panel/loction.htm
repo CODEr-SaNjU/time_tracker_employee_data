@@ -5,7 +5,6 @@
 <head>
 	<title>Vertibld Admin Panel</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
 	<link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}">
 
 </head>
@@ -15,9 +14,11 @@
 	{% block content %}
 	<br>
 	<br>
+	<div align="right">
+		<button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Location</button>
+	</div>
 <div class="row">
 	<div class="col">
-		<button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1120px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Location</button>
 			<div class="modal-body form_container">
 				<div class="container">
 					<div class="row">

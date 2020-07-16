@@ -15,9 +15,11 @@
 	{% block content %}
     <br>
     <br>
+    <div align="right">
+        <button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Activity</button>
+    </div>
     <div class="row">
         <div class="col">
-            <button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1100px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Activity</button>
                 <div class="modal-body form_container">
                     <div class="container">
                         <div class="row">
@@ -35,8 +37,8 @@
                                         </div>
                                         <br>
                                         <div class="form-label-group">
-                                            <label for="inputemail">Activity</label>
-                                            <input type="text" name="text" id="inputtext" class="form-control" placeholder="Activity" required autocomplete="off">
+                                            <label for="inputactivity">Activity</label>
+                                            <input type="text" name="activity" id="inputactivity" class="form-control" placeholder="Activity" required autocomplete="off">
                                         </div>
                                         {% if messages %}
                                         <div class="messages">

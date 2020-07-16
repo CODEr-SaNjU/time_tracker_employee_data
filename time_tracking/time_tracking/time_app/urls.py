@@ -81,6 +81,10 @@ urlpatterns = [
 
     path('Admin_panel/employee_data/employee_data/',views.Admin_panel_employee_data,name='Admin_panel_employee_data'),
     path('Admin_panel/employee_data/employee_data/search/',views.Admin_panel_employee_data_search,name='Admin_panel_employee_data_search'),
+
+
+    path('Admin_panel/employee_data/export_excel/',views.Admin_panel_export_excel,name="Admin_panel_export_excel"),
+
     path('forget_password/',auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.htm',subject_template_name='registration/password_reset_subject.txt',email_template_name='registration/password_reset_email.html'),name='forget_password'),
     path("password_reset/done",auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),name='password_reset_done'),
     path('password-reset-confirm/<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),name='password_reset_confirm'),

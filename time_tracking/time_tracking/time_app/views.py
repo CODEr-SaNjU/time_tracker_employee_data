@@ -167,7 +167,7 @@ def user_data_filter(request):
 
 @login_required(login_url='login')
 def user_time(request):
-    userdata = UserData.objects.update(hours = F('end_time')-F('start_time'))
+    userdata = UserData.objects.update(hours = F('end_time')-F('start_time'))                                           
     return render(request,'html_files/user_data_confirm.htm',{'userdata':userdata})
 
 
@@ -244,7 +244,8 @@ def Admin_panel_reg_search(request):
     return render(request,'Admin_panel/Employee_registrion.htm',{"Employee":Employee})
 
 def Admin_panel_user_update_data(request,pk_id):
-    Employees = User.objects.get(id=pk_id)
+    context = {}
+    Employees = get_object_or_404(User,id=pk_id)
     return render(request,'Admin_panel/update_user.htm',{'Employees':Employees})
 
 def Admin_panel_user_delete_data(request, pk):
@@ -279,9 +280,9 @@ def Admin_panel_Activity_Delete(request,pk):
     return render(request,'Admin_panel/activity_delete.htm' , {"activity":activity})
 
 
-def Admin_panel_Activity_Update(request,pk):
+def Admin_panel_Activity_Update(request,pk_id):
     activity = Activity.objects.get(id=pk_id)
-    return render(request,'Admin_panel/deprtmnt_update.htm',{'activity':activity})
+    return render(request,'Admin_panel/activity_update.htm',{'activity':activity})
 
 
 def Admin_panel_deprtmnt(request):
@@ -323,8 +324,10 @@ def Admin_panel_enquiry_no_Search(request):
     return render(request,'Admin_panel/enquiry_no.htm',{"enquiry_no":enquiry_no})
 
 
-def Admin_panel_enquiry_no_Update(request):
-    pass
+def Admin_panel_enquiry_no_Update(request,pk_id):
+    enquiry_no = Enq_No.objects.get(id=pk_id)
+    return render(request,'Admin_panel/enquiry_no_update.htm',{'enquiry_no':enquiry_no})
+    
 
 def Admin_panel_enquiry_no_Delete(request,pk):
     enquiry_no = get_object_or_404(Enq_No,id=pk)
@@ -364,8 +367,9 @@ def Admin_panel_loction_Delete(request,pk):
     
 
 
-def Admin_panel_loction_Update(request):
-    pass
+def Admin_panel_loction_Update(request,pk_id):
+    loction = Location.objects.get(id=pk_id)
+    return render(request,'Admin_panel/loction_update.htm',{'loction':loction})
 
 
 
@@ -378,9 +382,9 @@ def Admin_panel_project_enq_Search(request):
     project_enq = Project_Enq.objects.filter(projectEnq__icontains=search)
     return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
 
-def Admin_panel_project_enq_Update(request):
-    pass
-
+def Admin_panel_project_enq_Update(request,pk_id):
+    projct_enq = Project_Enq.objects.get(id=pk_id)
+    return render(request,'Admin_panel/projct_enq_update.htm',{'projct_enq':projct_enq})
 
 
 def Admin_panel_project_enq_Delete(request,pk):
@@ -455,3 +459,10 @@ def Admin_panel_Data_Delete(request,pk):
 
 def Admin_panel_employee_data_Add(request):
     pass
+
+
+
+
+
+def Admin_panel_export_excel(request):
+   return render(request,'Admin_panel/export_excel.htm')

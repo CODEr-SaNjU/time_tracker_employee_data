@@ -16,43 +16,45 @@
 
 	<br>
 	<br>
+	<div align="right">
+		<button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Department</button>
+	</div>
 	<div class="row">
 		<div class="col">
-			<button class="btn btn-outline-info" id="form-data"  type="button" style="margin-left: 1100px;"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Department</button>
-				<div class="modal-body form_container">
-					<div class="container">
-						<div class="row">
-						  <div class="col">
-						  </div>
-						  <div class="col-6">
-								<form action="/Admin_panel/employee_data/deprtmnt/Add/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
-									{% csrf_token %}
-									<div class="card card-body">
-										<h5 style="text-align: center;">Add Department</h5>
-										<div class="form-label-group"></div>
-										<div class="form-label-group">
-											<label for="inputName">Department</label>
-											<input type="text" name="department" id="inputDepartment" class="form-control" placeholder="Department" required autofocus autocomplete="off">
-										</div>
-										{% if messages %}
-										<div class="messages">
-											{% for message in messages %}
-											<div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-												<div class="alert alert-danger" role="alert">&nbsp;{{ message }}</div></div>
-											{% endfor %}
-										</div>
-										{% endif %}
-										<div class="form-label-group"></div>
-										<br>
-										<button class="btn btn-lg btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">submit</button>
-										<button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
-									</div>
-								</form>
-						  </div>
-						  <div class="col">
-						  </div>
-						</div>
+			<div class="modal-body form_container">
+				<div class="container">
+					<div class="row">
+					<div class="col">
 					</div>
+					<div class="col-6">
+							<form action="/Admin_panel/employee_data/deprtmnt/Add/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
+								{% csrf_token %}
+								<div class="card card-body">
+									<h5 style="text-align: center;">Add Department</h5>
+									<div class="form-label-group"></div>
+									<div class="form-label-group">
+										<label for="inputName">Department</label>
+										<input type="text" name="department" id="inputDepartment" class="form-control" placeholder="Department" required  autofocus autocomplete="off">
+									</div>
+									{% if messages %}
+									<div class="messages">
+										{% for message in messages %}
+										<div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+											<div class="alert alert-danger" role="alert">&nbsp;{{ message }}</div></div>
+										{% endfor %}
+									</div>
+									{% endif %}
+									<div class="form-label-group"></div>
+									<br>
+									<button class="btn btn-lg btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">submit</button>
+									<button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
+								</div>
+							</form>
+					</div>
+					<div class="col">
+					</div>
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>
