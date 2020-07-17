@@ -9,7 +9,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import UserData,Department ,Activity
 from .models import Enq_No,Name_of_Project,Project_Enq,Location
-from .forms import UserDataForm
+from .forms import UserDataForm ,DepartmentForm,ActivityForm ,UserForm,Enq_NoForm ,Name_of_ProjectForm ,Project_EnqForm,LocationForm
 from django.contrib.auth.decorators import login_required,permission_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -244,9 +244,13 @@ def Admin_panel_reg_search(request):
     return render(request,'Admin_panel/Employee_registrion.htm',{"Employee":Employee})
 
 def Admin_panel_user_update_data(request,pk_id):
-    context = {}
-    Employees = get_object_or_404(User,id=pk_id)
-    return render(request,'Admin_panel/update_user.htm',{'Employees':Employees})
+    Employee = get_object_or_404(User,id=pk_id)
+    form = UserForm(request.POST or None, instance=Employee)
+    if form.is_valid():
+        form.save()
+        return redirect('User_registrion')
+    return render(request,'Admin_panel/update_user.htm',{'form':form})
+
 
 def Admin_panel_user_delete_data(request, pk):
     Employee = get_object_or_404(User,id=pk)
@@ -265,7 +269,18 @@ def Admin_panel_Activity(request):
     return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
 def Admin_panel_Activity_Add(request):
-    pass
+    if request.method == "POST":
+        activity_form = ActivityForm(data = request.POST)
+        if activity_form.is_valid():
+            activity=activity_form.save(commit=False)
+            activity.save()
+            return redirect('Admin_panel_Activity')
+        activity_form = ActivityForm()
+        return render(request,'Admin_panel/activity.htm',{'form':activity_form})
+    else:
+        activity_form = ActivityForm()
+        return render(request,'Admin_panel/activity.htm',{'form':activity_form})
+
 
 def Admin_panel_Activity_search(request):
     search = request.GET['search']
@@ -281,8 +296,15 @@ def Admin_panel_Activity_Delete(request,pk):
 
 
 def Admin_panel_Activity_Update(request,pk_id):
-    activity = Activity.objects.get(id=pk_id)
-    return render(request,'Admin_panel/activity_update.htm',{'activity':activity})
+    activity = get_object_or_404(Activity,id=pk_id)
+    form = ActivityForm(request.POST or None, instance=activity)
+    if form.is_valid():
+        form.save()
+        return redirect('Admin_panel_Activity')
+    return render(request,'Admin_panel/activity_update.htm',{'form':form})
+
+
+  
 
 
 def Admin_panel_deprtmnt(request):
@@ -296,8 +318,12 @@ def Admin_panel_deprtmnt_Add(request):
     return redirect('Admin_panel_deprtmnt')
 
 def Admin_panel_deprtmnt_Update(request,pk_id):
-    deprmnt = Department.objects.get(id=pk_id)
-    return render(request,'Admin_panel/deprtmnt_update.htm',{'deprmnt':deprmnt})
+    deprmnt = get_object_or_404(Department,id=pk_id)
+    form = DepartmentForm(request.POST or None, instance=deprmnt)
+    if form.is_valid():
+        form.save()
+        return redirect('Admin_panel_deprtmnt')
+    return render(request,'Admin_panel/deprtmnt_update.htm',{'form':form})
     
 def Admin_panel_deprtmnt_search(request):
     search = request.GET['search']
@@ -325,8 +351,12 @@ def Admin_panel_enquiry_no_Search(request):
 
 
 def Admin_panel_enquiry_no_Update(request,pk_id):
-    enquiry_no = Enq_No.objects.get(id=pk_id)
-    return render(request,'Admin_panel/enquiry_no_update.htm',{'enquiry_no':enquiry_no})
+    enquiry_no = get_object_or_404(Enq_No,id=pk_id)
+    form = Enq_NoForm(request.POST or None, instance=enquiry_no)
+    if form.is_valid():
+        form.save()
+        return redirect('Admin_panel_enquiry_no')
+    return render(request,'Admin_panel/enquiry_no_update.htm',{'form':form})
     
 
 def Admin_panel_enquiry_no_Delete(request,pk):
@@ -368,8 +398,12 @@ def Admin_panel_loction_Delete(request,pk):
 
 
 def Admin_panel_loction_Update(request,pk_id):
-    loction = Location.objects.get(id=pk_id)
-    return render(request,'Admin_panel/loction_update.htm',{'loction':loction})
+    loction = get_object_or_404(Location,id=pk_id)
+    form = LocationForm(request.POST or None, instance=loction)
+    if form.is_valid():
+        form.save()
+        return redirect('Admin_panel_loction')
+    return render(request,'Admin_panel/loction_update.htm',{'form':form})
 
 
 
@@ -383,8 +417,12 @@ def Admin_panel_project_enq_Search(request):
     return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
 
 def Admin_panel_project_enq_Update(request,pk_id):
-    projct_enq = Project_Enq.objects.get(id=pk_id)
-    return render(request,'Admin_panel/projct_enq_update.htm',{'projct_enq':projct_enq})
+    projct_enq = get_object_or_404(Project_Enq,id=pk_id)
+    form = Project_EnqForm(request.POST or None, instance=projct_enq)
+    if form.is_valid():
+        form.save()
+        return redirect('Admin_panel_project_enq')
+    return render(request,'Admin_panel/projct_enq_update.htm',{'form':form})
 
 
 def Admin_panel_project_enq_Delete(request,pk):
@@ -408,8 +446,13 @@ def Admin_panel_name_of_project(request):
 def Admin_panel_name_of_project_Add(request):
     pass
 
-def Admin_panel_name_of_project_Update(request):
-    pass
+def Admin_panel_name_of_project_Update(request,pk_id):
+    name_of_project = get_object_or_404(Name_of_Project,id=pk_id)
+    form = Name_of_ProjectForm(request.POST or None, instance=name_of_project)
+    if form.is_valid():
+        form.save()
+        return redirect('Admin_panel_name_of_project')
+    return render(request,'Admin_panel/name_of_project_update.htm',{'form':form})
 
 def Admin_panel_name_of_project_Delete(request,pk):
     name_of_project = get_object_or_404(Name_of_Project,id=pk)

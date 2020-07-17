@@ -3,6 +3,12 @@ from .models import Activity,Department,Location,Enq_No,Project_Enq,UserData,Enq
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponse
 
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name','email','username','is_staff','is_active','is_superuser']
+
 class DateInput(forms.DateInput):
     input_type = 'date'
     # input_type = 'time'
@@ -39,3 +45,43 @@ class UserDataForm(forms.ModelForm):
         
     def clean(self):
         pass
+
+
+class DepartmentForm(forms.ModelForm):
+    class Meta:
+        model = Department
+        fields = ['department']   
+
+
+
+
+
+class ActivityForm(forms.ModelForm):
+    class Meta:
+        model = Activity
+        fields = ['department','activity']
+
+
+
+class Enq_NoForm(forms.ModelForm):
+    class Meta:
+        model = Enq_No
+        fields = ['enq_no']
+
+
+class LocationForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        fields = ['location']
+
+
+class Project_EnqForm(forms.ModelForm):
+    class Meta:
+        model = Project_Enq
+        fields = ['projectEnq']
+
+
+class Name_of_ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Name_of_Project
+        fields = ['projectEnq','enq_no','name_of_project']

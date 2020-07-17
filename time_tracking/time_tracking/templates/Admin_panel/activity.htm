@@ -1,4 +1,5 @@
 {% load static %}
+{% load crispy_forms_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -26,12 +27,16 @@
                           <div class="col">
                           </div>
                           <div class="col-6">
+                              {%if form%}
                                   <form action="/Admin_panel/employee_data/Activity/Add/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
                                     {% csrf_token %}
                                     <div class="card card-body">
                                         <h5 style="text-align: center;">Add Activity</h5>
                                         <div class="form-label-group"></div>
                                         <div class="form-label-group">
+                                            {% for field in form %}
+                                            {{ field | as_crispy_field }}
+                                            {% endfor %}
                                             <label for="inputName">Department</label>
                                             <input type="select" name="Department" id="inputDepartment" class="form-control" placeholder="Department" required autofocus autocomplete="off">
                                         </div>
@@ -53,6 +58,7 @@
                                         <button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
                                     </div>
                                 </form>
+                            {% endif %}
                           </div>
                           <div class="col">
                           </div>
