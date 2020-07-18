@@ -36,6 +36,7 @@ urlpatterns = [
 
     path('Admin_panel/employee_data/search/',views.Admin_panel_data_search,name='Admin_panel_data_search'),
     
+    path('Admin_panel/employee_data/Activity/Add/',views.Admin_panel_Activity_Add,name='Admin_panel_Activity_Add'),
     path('Admin_panel/employee_data/Activity/',views.Admin_panel_Activity,name='Admin_panel_Activity'),
     path('Admin_panel/employee_data/Activity/Delete/<str:pk>/',views.Admin_panel_Activity_Delete,name='Admin_panel_Activity_Delete'),
     path('Admin_panel/employee_data/Activity/Update/<str:pk_id>/',views.Admin_panel_Activity_Update,name='Admin_panel_Activity_Update'),

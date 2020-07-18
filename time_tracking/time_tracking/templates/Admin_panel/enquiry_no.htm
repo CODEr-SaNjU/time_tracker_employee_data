@@ -1,5 +1,7 @@
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,14 +33,17 @@
 								<div class="card card-body">
 									<h5 style="text-align: center;">Add Enquiry Number</h5>
 									<div class="form-label-group"></div>
+									{% for field in form %}
+									{{ field | as_crispy_field }}
+									{% endfor %}
 									<div class="form-label-group">
-										<label for="inputName">Project Enquiry</label>
+										<!-- <label for="inputName">Project Enquiry</label>
 										<input type="text" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus autocomplete="off">
 									</div>
 									<br>
 									<div class="form-label-group">
 										<label for="inputemail">Enquiry Number</label>
-										<input type="number" name="number" id="inputEnquirynumber" class="form-control" placeholder="Enquiry Number" required autocomplete="off">
+										<input type="number" name="number" id="inputEnquirynumber" class="form-control" placeholder="Enquiry Number" required autocomplete="off"> -->
 									</div>
 									{% if messages %}
 									<div class="messages">

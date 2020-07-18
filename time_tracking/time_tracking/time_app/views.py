@@ -367,8 +367,17 @@ def Admin_panel_enquiry_no_Delete(request,pk):
     return render(request,'Admin_panel/enquiry_no_delete.htm' , {"enquiry_no":enquiry_no})
 
 def Admin_panel_enquiry_no_Add(request):
-    pass
-
+    if request.method == "POST":
+        enquiry_no_form = Enq_NoForm(data = request.POST)
+        if enquiry_no_form.is_valid():
+            enquiry_no=enquiry_no_form.save(commit=False)
+            activity.save()
+            return redirect('Admin_panel_enquiry_no')
+        enquiry_no_form = Enq_NoForm()
+        return render(request,'Admin_panel/enquiry_no.htm',{'form':enquiry_no_form})
+    else:
+        enquiry_no_form = Enq_NoForm()
+        return render(request,'Admin_panel/enquiry_no.htm',{'form':enquiry_no_form})
 
 
 def Admin_panel_loction(request):
@@ -444,7 +453,17 @@ def Admin_panel_name_of_project(request):
     return render(request,'Admin_panel/name_of_project.htm',{"name_of_project":name_of_project})
 
 def Admin_panel_name_of_project_Add(request):
-    pass
+    if request.method == "POST":
+        name_of_project_form = Name_of_ProjectForm(data = request.POST)
+        if name_of_project_form.is_valid():
+            name_of_project = name_of_project_form.save(commit=False)
+            name_of_project.save()
+            return redirect('Admin_panel_name_of_project')
+        name_of_project_form = Name_of_ProjectForm()
+        return render(request,'Admin_panel/name_of_project.htm',{'form':name_of_project_form})
+    else:
+        name_of_project_form = Name_of_ProjectForm()
+        return render(request,'Admin_panel/enquiry_no.htm',{'form':name_of_project_form})
 
 def Admin_panel_name_of_project_Update(request,pk_id):
     name_of_project = get_object_or_404(Name_of_Project,id=pk_id)

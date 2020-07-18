@@ -66,7 +66,7 @@ class ActivityForm(forms.ModelForm):
 class Enq_NoForm(forms.ModelForm):
     class Meta:
         model = Enq_No
-        fields = ['enq_no']
+        fields = ['projectEnq','enq_no']
 
 
 class LocationForm(forms.ModelForm):

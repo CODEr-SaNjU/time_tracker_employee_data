@@ -27,7 +27,6 @@
                           <div class="col">
                           </div>
                           <div class="col-6">
-                              {%if form%}
                                   <form action="/Admin_panel/employee_data/Activity/Add/" method="POST" id="form-data1" class="form-signin" style="display: none;" >
                                     {% csrf_token %}
                                     <div class="card card-body">
@@ -37,13 +36,13 @@
                                             {% for field in form %}
                                             {{ field | as_crispy_field }}
                                             {% endfor %}
-                                            <label for="inputName">Department</label>
+                                            <!-- <label for="inputName">Department</label>
                                             <input type="select" name="Department" id="inputDepartment" class="form-control" placeholder="Department" required autofocus autocomplete="off">
                                         </div>
                                         <br>
                                         <div class="form-label-group">
                                             <label for="inputactivity">Activity</label>
-                                            <input type="text" name="activity" id="inputactivity" class="form-control" placeholder="Activity" required autocomplete="off">
+                                            <input type="text" name="activity" id="inputactivity" class="form-control" placeholder="Activity" required autocomplete="off"> -->
                                         </div>
                                         {% if messages %}
                                         <div class="messages">
@@ -58,7 +57,6 @@
                                         <button class="btn btn-lg  btn-block text-uppercase" style="background-color: #851313;" type="reset">Cancel</button>
                                     </div>
                                 </form>
-                            {% endif %}
                           </div>
                           <div class="col">
                           </div>
