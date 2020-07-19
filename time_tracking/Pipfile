@@ -6,15 +6,18 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-djangorestframework = "*"
-psycopg2-binary = "*"
 django = "*"
+psycopg2-binary = "*"
+django-crispy-forms = "*"
 django-cors-headers = "*"
 django-allauth = "*"
-django-crispy-forms = "*"
-xlwt = "*"
 pylint = "*"
 pylint-django = "*"
+xlwt = "*"
+rest-auth = "*"
+crispy-forms = "*"
+djangorestframework = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.8"

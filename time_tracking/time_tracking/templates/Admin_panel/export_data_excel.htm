@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,15 +15,12 @@
 	{% block content %}
     <br>
     <br>
-    <div align="right">
-        <a href="{%url 'Admin_panel_name_of_project_Add'%}"><button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle"></i>&nbsp;Add Name of Project</button></a>
-    </div> 
-    <br>
+
     <div class="row">
         <div class="col">
             <div class="card card-body">
-                <form method="GET" action="/Admin_panel/employee_data/name_of_project/Search/" class="form-inline my-2 my-lg-10">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
+                <form method="GET" action="" class="form-inline my-2 my-lg-10">
+                    {{ filter.form.as_q}}
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>
@@ -38,23 +35,33 @@
                     <thead>
                         <tr>
                             {% csrf_token %}
-                            <th scope="col">Sr Number</th>
-                            <th scope="col">name of Project</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">Department:</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Project Enq</th>
+                            <th scope="col">Enq_no</th>
+                            <th scope="col">Name_of_project</th>
+                            <th scope="col">Activity</th>
+                            <th scope="col">Hour</th>
+                            <th scope="col">Submit Date</th>
+                            <th scope="col">Start time</th>
+                            <th scope="col">End time</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% if name_of_project %}
-                           {% for i in name_of_project %}
-                           <tr>
-                               <td>{{i.id}}</td>
-                               <td>{{i.name_of_project}}</td>
-                               <td><a href="{%url 'Admin_panel_name_of_project_Update' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_name_of_project_Delete' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
-                            {% endfor %}
-                        {% else %}
-                                <td><h1 style="color: red;">No data found</h1></td>
-                            </tr>
-                        {% endif %}
+                        {% for userdata in userdata  %}
+                        <tr>
+                            <td>{{userdata.department}}</td>
+                            <td>{{userdata.location}}</td>
+                            <td>{{userdata.projectEnq}}</td>
+                            <td>{{userdata.enq_no}}</td>
+                            <td>{{userdata.name_of_project}}</td>
+                            <td>{{userdata.activity}}</td>
+                            <td>{{userdata.hours}}</td>
+                            <td>{{userdata.submit_data}}</td>
+                            <td>{{userdata.start_time}}</td>
+                            <td>{{userdata.end_time}}</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -78,3 +85,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

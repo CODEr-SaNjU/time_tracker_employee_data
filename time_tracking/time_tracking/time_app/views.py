@@ -9,13 +9,15 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import UserData,Department ,Activity
 from .models import Enq_No,Name_of_Project,Project_Enq,Location
-from .forms import UserDataForm ,DepartmentForm,ActivityForm ,UserForm,Enq_NoForm ,Name_of_ProjectForm ,Project_EnqForm,LocationForm
+from .forms import UserDataForm ,DepartmentForm,ActivityForm,EmployeeDataForm ,UserForm,Enq_NoForm ,Name_of_ProjectForm ,Project_EnqForm,LocationForm
 from django.contrib.auth.decorators import login_required,permission_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user ,allowed_user
 from django.db.models import F ,Q
 import datetime
+
+from .filters import UserDataFilter
 
 @unauthenticated_user
 def login(request):
@@ -276,10 +278,10 @@ def Admin_panel_Activity_Add(request):
             activity.save()
             return redirect('Admin_panel_Activity')
         activity_form = ActivityForm()
-        return render(request,'Admin_panel/activity.htm',{'form':activity_form})
+        return render(request,'Admin_panel/activity_Add.htm',{'form':activity_form})
     else:
         activity_form = ActivityForm()
-        return render(request,'Admin_panel/activity.htm',{'form':activity_form})
+        return render(request,'Admin_panel/activity_Add.htm',{'form':activity_form})
 
 
 def Admin_panel_Activity_search(request):
@@ -371,13 +373,13 @@ def Admin_panel_enquiry_no_Add(request):
         enquiry_no_form = Enq_NoForm(data = request.POST)
         if enquiry_no_form.is_valid():
             enquiry_no=enquiry_no_form.save(commit=False)
-            activity.save()
+            enquiry_no.save()
             return redirect('Admin_panel_enquiry_no')
         enquiry_no_form = Enq_NoForm()
-        return render(request,'Admin_panel/enquiry_no.htm',{'form':enquiry_no_form})
+        return render(request,'Admin_panel/enquiry_no_Add.htm',{'form':enquiry_no_form})
     else:
         enquiry_no_form = Enq_NoForm()
-        return render(request,'Admin_panel/enquiry_no.htm',{'form':enquiry_no_form})
+        return render(request,'Admin_panel/enquiry_no_Add.htm',{'form':enquiry_no_form})
 
 
 def Admin_panel_loction(request):
@@ -460,10 +462,10 @@ def Admin_panel_name_of_project_Add(request):
             name_of_project.save()
             return redirect('Admin_panel_name_of_project')
         name_of_project_form = Name_of_ProjectForm()
-        return render(request,'Admin_panel/name_of_project.htm',{'form':name_of_project_form})
+        return render(request,'Admin_panel/name_of_project_Add.htm',{'form':name_of_project_form})
     else:
         name_of_project_form = Name_of_ProjectForm()
-        return render(request,'Admin_panel/enquiry_no.htm',{'form':name_of_project_form})
+        return render(request,'Admin_panel/name_of_project_Add.htm',{'form':name_of_project_form})
 
 def Admin_panel_name_of_project_Update(request,pk_id):
     name_of_project = get_object_or_404(Name_of_Project,id=pk_id)
@@ -498,16 +500,16 @@ def Admin_panel_employee_data_search(request):
 
 def Admin_panel_Data_update(request,pk_id):
     obj = get_object_or_404(UserData,id=pk_id)
-    form = UserDataForm(request.POST or None,instance=obj)
-    if form.is_valid():
-        instance=form.save(commit=False)
+    UserData_form = EmployeeDataForm(request.POST or None,instance=obj)
+    if UserData_form.is_valid():
+        instance=UserData_form.save(commit=False)
         instance.username = request.user
         instance.save()
-        form.save()
-        return redirect('user_time')
+        UserData_form.save()
+        return redirect('Admin_panel_employee_data')
         messages.success(request,'data has been update successfully  ')
-        return redirect('user_update_data')
-    return render(request,'html_files/user_update_data.htm',{'form':form})
+        return redirect('Admin_panel_Data_update')
+    return render(request,'Admin_panel/employee_data_Update.htm',{'form':UserData_form})
    
 
 def Admin_panel_Data_Delete(request,pk):
@@ -520,11 +522,25 @@ def Admin_panel_Data_Delete(request,pk):
 
 
 def Admin_panel_employee_data_Add(request):
-    pass
+    if request.method == "POST":
+        UserData_form = EmployeeDataForm(data = request.POST)
+        if UserData_form.is_valid():
+            UserData = UserData_form.save(commit=False)
+            UserData.save()
+            return redirect('Admin_panel_employee_data')
+        UserData_form = EmployeeDataForm()
+        return render(request,'Admin_panel/employee_data_Add.htm',{'form':UserData_form})
+    else:
+        UserData_form = EmployeeDataForm()
+        return render(request,'Admin_panel/employee_data_Add.htm',{'form':UserData_form})
 
 
 
 
 
-def Admin_panel_export_excel(request):
-   return render(request,'Admin_panel/export_excel.htm')
+
+
+def Admin_panel_export_excel_search(request):
+    user_list = UserData.objects.all()
+    user_filter = UserDataFilter(request.GET, queryset=user_list)
+    return render(request, 'Admin_panel/export_excel.htm', {'form': user_filter})

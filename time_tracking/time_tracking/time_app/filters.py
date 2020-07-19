@@ -1,8 +1,10 @@
 import django_filters
 
 from .models import *
+from django.contrib.auth.models import User
+
 
 class UserDataFilter(django_filters.FilterSet):
     class Meta:
         model = UserData
-        fileds = ['submit_data','enq_no']
+        fields = ['username', 'department', ]

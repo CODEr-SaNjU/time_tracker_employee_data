@@ -13,7 +13,7 @@
     {%  include 'Admin_panel/Navbar.htm' %}
     <div class="container-fluid">
 	    {% block content %}
-	    <br>
+        <br>
         <br>
     </div>
 
@@ -22,19 +22,52 @@
 	<div class="col">
 		<div class="card card-body">
 			<form method="GET" action="#" class="form-inline my-2 my-lg-10">
-                <input class="form-control mr-sm-4" type="text" type="search" placeholder="Select"  aria-label="Search" id="search" name="search">
-                <input class="form-control mr-sm-4" type="text" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
-				<input class="form-control mr-sm-4" type="number" type="search" placeholder="Search" aria-label="Search" id="search" name="search">
-				<button class="btn btn-primary" type="submit">Search</button>
+                {{form.form.as_p}}
+               <button class="btn btn-primary" type="submit">Search</button>
 			</form>
-		</div>
+        </div>
 	</div>
 </div>
 <br>
 
+<button class="btn  my-2 my-sm-0" value="Export"  style="color: white;"  id="btn" type="button">Export Excel</button>
+
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
+            <table id="table" class="table table-hover table-sm table-dark">
+                <thead>
+                  <tr>
+                    {% csrf_token %}
+                    <th scope="col">Department:</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Project Enq</th>
+                    <th scope="col">Enq_no</th>
+                    <th scope="col">Name_of_project</th>
+                    <th scope="col">Activity</th>
+                    <th scope="col">Hour</th>
+                    <th scope="col">Submit Date</th>
+                    <th scope="col">Start time</th>
+                    <th scope="col">End time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for userdata in form.qs  %}
+                  <tr>
+                    <td>{{userdata.department}}</td>
+                    <td>{{userdata.location}}</td>
+                    <td>{{userdata.projectEnq}}</td>
+                    <td>{{userdata.enq_no}}</td>
+                    <td>{{userdata.name_of_project}}</td>
+                    <td>{{userdata.activity}}</td>
+                    <td>{{userdata.hours}}</td>
+                    <td>{{userdata.submit_data}}</td>
+                    <td>{{userdata.start_time}}</td>
+                    <td>{{userdata.end_time}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
 		</div>
 	</div>
 </div>
@@ -45,14 +78,22 @@
 	$("#form-data").click(function(){
         $("#form-data1").toggle();
     });
+
+    $(document).ready(function(){
+  $("#btn").on('click',function(e){
+    $("table").table2excel({
+      name: "Emp_data",
+      filename: "Employee_data" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+    });
+  });
+});
 </script>
-{% endblock %}
-    </div>
+
 
 	
 </body>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </html>
+{% endblock %}
