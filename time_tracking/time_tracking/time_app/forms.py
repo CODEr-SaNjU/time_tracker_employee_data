@@ -2,7 +2,14 @@ from django import forms
 from .models import Activity,Department,Location,Enq_No,Project_Enq,UserData,Enq_No,Name_of_Project
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponse
+from django.contrib.auth.forms import UserCreationForm
 
+
+
+class UserCreateForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['first_name','email','username','password1','password2']
 
 class UserForm(forms.ModelForm):
     class Meta:

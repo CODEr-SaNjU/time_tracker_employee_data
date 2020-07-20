@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect , get_object_or_404
-from django.contrib.auth.models import User,auth
+from django.contrib.auth.models import User,auth ,Group
 from django.http import Http404, HttpResponse
 from django.contrib.auth.models import AbstractBaseUser, UserManager
 from django.contrib import messages
@@ -9,13 +9,14 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from .models import UserData,Department ,Activity
 from .models import Enq_No,Name_of_Project,Project_Enq,Location
-from .forms import UserDataForm ,DepartmentForm,ActivityForm,EmployeeDataForm ,UserForm,Enq_NoForm ,Name_of_ProjectForm ,Project_EnqForm,LocationForm
+from .forms import UserDataForm,UserCreateForm ,DepartmentForm,ActivityForm,EmployeeDataForm ,UserForm,Enq_NoForm ,Name_of_ProjectForm ,Project_EnqForm,LocationForm
 from django.contrib.auth.decorators import login_required,permission_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from .decorators import unauthenticated_user ,allowed_user
 from django.db.models import F ,Q
 import datetime
+from django.contrib.auth.forms import UserCreationForm
 
 from .filters import UserDataFilter
 
@@ -47,7 +48,7 @@ def home(request):
     return render(request,'html_files/Main.htm')
 
 
-# @unauthenticated_user
+@unauthenticated_user
 def register(request):
     if request.method=='POST':
         name = request.POST['name']
@@ -178,7 +179,8 @@ def submitted_data(request):
     userdata = UserData.objects.filter(username=request.user,submit_data__lte=datetime.datetime.today(),submit_data__gt=datetime.datetime.today()-datetime.timedelta(days=15)).order_by('-submit_data')
     return render(request,'html_files/Home.htm',{'userdata':userdata})
 
-
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel(request):
     employee_data = UserData.objects.all()
     total_employee_data = employee_data.count()
@@ -190,61 +192,50 @@ def Admin_panel(request):
     return render(request,'Admin_panel/inbox.htm',{"employee_data":employee_data,'total_user':total_user,'total_employee_data':total_employee_data,'last_five':last_five})
 
 
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Reg(request):    
     Employee = User.objects.all()
     conext = {'Employee':Employee}
     return render(request,'Admin_panel/Employee_registrion.htm',conext)
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_User_Add(request):
-    if request.method=='POST':
-        name = request.POST['name']
-        email = request.POST['email']
-        Employeeid = request.POST['empid']
-        password = request.POST['password']
-        password1 = request.POST['password1']
-        if password==password1:
-            if User.objects.filter(username=Employeeid).exists():
-                messages.info(request,'employee id already exists')
-                return redirect('Admin_panel_User_Add')
-            elif User.objects.filter(email=email).exists():
-                messages.info(request,'email already exists')
-                return  redirect('Admin_panel_User_Add')
-            # elif not Employeeid.isupper():
-            #     messages.info(request,"Employeeid should be  uppercase")
-            #     return redirect('register')
-            # elif not 'MOBTR' in Employeeid:
-            #     messages.info(request,"Employeeid should be in correct")
-            #     return redirect('register')
-            # elif not 'geodesictechniques' in email:
-            #     messages.info(request,"email should be in correct format")
-            #     return redirect('register')
-            # elif 'gmail' in email:
-            #     messages.info(request,"email should be in correct format")
-            #     return redirect('register')
-            else:
-                user = User.objects.create_user(email=email,username=Employeeid,password=password,first_name=name)
-                user.save()
-                messages.success(request,'registration has been successfully completed '+name)
-                return redirect('User_registrion')
-        else:
-            messages.info(request,'password not matching')
-            return redirect('Admin_panel_User_Add')
-    else:
-        return redirect('User_registrion')
+    form = UserCreateForm()
+    if request.method == 'POST':
+        form = UserCreateForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            username = form.cleaned_data.get('username')
+            group = Group.objects.get(name='Employee')
+            user.groups.add(group)
+            messages.success(request,'User is created successfully',+username)
+            return redirect('User_registrion')
+
+    context = {'form':form}
+    return render(request,'Admin_panel/Employee_registrion_Add.htm',context)
 
 
-
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Data(request):
     employee_data = UserData.objects.all()
     return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
 
 
 
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_reg_search(request):
     search = request.GET['search']
     Employee = User.objects.filter(username__icontains=search)
     return render(request,'Admin_panel/Employee_registrion.htm',{"Employee":Employee})
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_user_update_data(request,pk_id):
     Employee = get_object_or_404(User,id=pk_id)
     form = UserForm(request.POST or None, instance=Employee)
@@ -254,6 +245,8 @@ def Admin_panel_user_update_data(request,pk_id):
     return render(request,'Admin_panel/update_user.htm',{'form':form})
 
 
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_user_delete_data(request, pk):
     Employee = get_object_or_404(User,id=pk)
     if request.method == "POST":
@@ -261,15 +254,24 @@ def Admin_panel_user_delete_data(request, pk):
         return redirect('User_registrion')
     return render(request,'Admin_panel/employee_reg_delete.htm' , {"Employee":Employee})
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_data_search(request):
     search = request.GET['search']
     employee_data = UserData.objects.filter(activity__activity=search)
     return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Activity(request):
     activity = Activity.objects.all()
     return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Activity_Add(request):
     if request.method == "POST":
         activity_form = ActivityForm(data = request.POST)
@@ -284,11 +286,17 @@ def Admin_panel_Activity_Add(request):
         return render(request,'Admin_panel/activity_Add.htm',{'form':activity_form})
 
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Activity_search(request):
     search = request.GET['search']
     activity = Activity.objects.filter(Q(activity__icontains=search))
     return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Activity_Delete(request,pk):
     activity = get_object_or_404(Activity,id=pk)
     if request.method == "POST":
@@ -297,6 +305,8 @@ def Admin_panel_Activity_Delete(request,pk):
     return render(request,'Admin_panel/activity_delete.htm' , {"activity":activity})
 
 
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Activity_Update(request,pk_id):
     activity = get_object_or_404(Activity,id=pk_id)
     form = ActivityForm(request.POST or None, instance=activity)
@@ -309,16 +319,24 @@ def Admin_panel_Activity_Update(request,pk_id):
   
 
 
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_deprtmnt(request):
     deprmnt = Department.objects.all()
     return render(request,'Admin_panel/deprtmnt.htm',{"deprmnt":deprmnt})
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_deprtmnt_Add(request):
     department = request.POST["department"]
     deprtmnt_Add = Department(department=department)
     deprtmnt_Add.save()
     return redirect('Admin_panel_deprtmnt')
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_deprtmnt_Update(request,pk_id):
     deprmnt = get_object_or_404(Department,id=pk_id)
     form = DepartmentForm(request.POST or None, instance=deprmnt)
@@ -327,12 +345,20 @@ def Admin_panel_deprtmnt_Update(request,pk_id):
         return redirect('Admin_panel_deprtmnt')
     return render(request,'Admin_panel/deprtmnt_update.htm',{'form':form})
     
+
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])    
 def Admin_panel_deprtmnt_search(request):
     search = request.GET['search']
     deprmnt =Department.objects.filter(department__icontains=search)
     return render(request,'Admin_panel/deprtmnt.htm',{"deprmnt":deprmnt})
 
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_deprtmnt_Delete(request,pk):
     deprmnt = get_object_or_404(Department,id=pk)
     if request.method == "POST":
@@ -341,17 +367,28 @@ def Admin_panel_deprtmnt_Delete(request,pk):
     return render(request,'Admin_panel/deprtmnt_delete.htm' , {"deprmnt":deprmnt})
 
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_enquiry_no(request):
     enquiry_no = Enq_No.objects.all()
     return render(request,'Admin_panel/enquiry_no.htm',{"enquiry_no":enquiry_no})
 
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_enquiry_no_Search(request):
     search = request.GET['search']
     enquiry_no =Enq_No.objects.filter(enq_no__icontains=search)
     return render(request,'Admin_panel/enquiry_no.htm',{"enquiry_no":enquiry_no})
 
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_enquiry_no_Update(request,pk_id):
     enquiry_no = get_object_or_404(Enq_No,id=pk_id)
     form = Enq_NoForm(request.POST or None, instance=enquiry_no)
@@ -361,6 +398,10 @@ def Admin_panel_enquiry_no_Update(request,pk_id):
     return render(request,'Admin_panel/enquiry_no_update.htm',{'form':form})
     
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_enquiry_no_Delete(request,pk):
     enquiry_no = get_object_or_404(Enq_No,id=pk)
     if request.method == "POST":
@@ -368,6 +409,10 @@ def Admin_panel_enquiry_no_Delete(request,pk):
         return redirect('Admin_panel_enquiry_no')
     return render(request,'Admin_panel/enquiry_no_delete.htm' , {"enquiry_no":enquiry_no})
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_enquiry_no_Add(request):
     if request.method == "POST":
         enquiry_no_form = Enq_NoForm(data = request.POST)
@@ -382,16 +427,27 @@ def Admin_panel_enquiry_no_Add(request):
         return render(request,'Admin_panel/enquiry_no_Add.htm',{'form':enquiry_no_form})
 
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_loction(request):
     loction = Location.objects.all()
     return render(request,'Admin_panel/loction.htm',{"loction":loction})
 
+
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_loction_Add(request):
     location = request.POST["location"]
     location_Add = Location(location=location)
     location_Add.save()
     return redirect('Admin_panel_loction')
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_loction_search(request):
     search = request.GET['search']
     loction = Location.objects.filter(Q(location__icontains=search))
@@ -399,6 +455,8 @@ def Admin_panel_loction_search(request):
 
 
 
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_loction_Delete(request,pk):
     loction = get_object_or_404(Location,id=pk)
     if request.method == "POST":
@@ -408,6 +466,9 @@ def Admin_panel_loction_Delete(request,pk):
     
 
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_loction_Update(request,pk_id):
     loction = get_object_or_404(Location,id=pk_id)
     form = LocationForm(request.POST or None, instance=loction)
@@ -418,15 +479,26 @@ def Admin_panel_loction_Update(request,pk_id):
 
 
 
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_project_enq(request):
     project_enq = Project_Enq.objects.all()
     return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
 
+
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_project_enq_Search(request):
     search = request.GET['search']
     project_enq = Project_Enq.objects.filter(projectEnq__icontains=search)
     return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_project_enq_Update(request,pk_id):
     projct_enq = get_object_or_404(Project_Enq,id=pk_id)
     form = Project_EnqForm(request.POST or None, instance=projct_enq)
@@ -436,6 +508,9 @@ def Admin_panel_project_enq_Update(request,pk_id):
     return render(request,'Admin_panel/projct_enq_update.htm',{'form':form})
 
 
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_project_enq_Delete(request,pk):
     project_enq = get_object_or_404(Project_Enq,id=pk)
     if request.method == "POST":
@@ -444,6 +519,10 @@ def Admin_panel_project_enq_Delete(request,pk):
     return render(request,'Admin_panel/project_enq_delete.htm' ,{"project_enq":project_enq})
 
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_project_enq_Add(request):
     projectEnq = request.POST["projectEnq"]
     projectEnq_Add = Project_Enq(projectEnq=projectEnq)
@@ -467,6 +546,11 @@ def Admin_panel_name_of_project_Add(request):
         name_of_project_form = Name_of_ProjectForm()
         return render(request,'Admin_panel/name_of_project_Add.htm',{'form':name_of_project_form})
 
+
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_name_of_project_Update(request,pk_id):
     name_of_project = get_object_or_404(Name_of_Project,id=pk_id)
     form = Name_of_ProjectForm(request.POST or None, instance=name_of_project)
@@ -475,6 +559,10 @@ def Admin_panel_name_of_project_Update(request,pk_id):
         return redirect('Admin_panel_name_of_project')
     return render(request,'Admin_panel/name_of_project_update.htm',{'form':form})
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_name_of_project_Delete(request,pk):
     name_of_project = get_object_or_404(Name_of_Project,id=pk)
     if request.method == "POST":
@@ -483,21 +571,40 @@ def Admin_panel_name_of_project_Delete(request,pk):
     return render(request,'Admin_panel/name_of_project_delete.htm' ,{"name_of_project":name_of_project})
 
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_name_of_project_Search(request):
     search = request.GET['search']
     name_of_project = Name_of_Project.objects.filter(name_of_project__icontains=search)
     return render(request,'Admin_panel/name_of_project.htm',{"name_of_project":name_of_project})
 
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_employee_data(request):
     employee_data = UserData.objects.all()
     return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
 
+
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_employee_data_search(request):
     search = request.GET['search']
     employee_data = UserData.objects.filter(activity__activity=search)
     return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
 
+
+
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Data_update(request,pk_id):
     obj = get_object_or_404(UserData,id=pk_id)
     UserData_form = EmployeeDataForm(request.POST or None,instance=obj)
@@ -512,6 +619,11 @@ def Admin_panel_Data_update(request,pk_id):
     return render(request,'Admin_panel/employee_data_Update.htm',{'form':UserData_form})
    
 
+
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Data_Delete(request,pk):
     Employee = get_object_or_404(UserData,id=pk)
     if request.method == "POST":
@@ -521,6 +633,10 @@ def Admin_panel_Data_Delete(request,pk):
 
 
 
+
+
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_employee_data_Add(request):
     if request.method == "POST":
         UserData_form = EmployeeDataForm(data = request.POST)
@@ -539,7 +655,8 @@ def Admin_panel_employee_data_Add(request):
 
 
 
-
+@login_required(login_url="login")
+@allowed_user(allowed_roles=['Admin'])
 def Admin_panel_export_excel_search(request):
     user_list = UserData.objects.all()
     user_filter = UserDataFilter(request.GET, queryset=user_list)

@@ -39,4 +39,4 @@ admin.site.register(Enq_No)
 admin.site.register(Activity)
 admin.site.register(Name_of_Project)
 admin.site.register(Project_Enq)
-admin.site.unregister(Group)
+
