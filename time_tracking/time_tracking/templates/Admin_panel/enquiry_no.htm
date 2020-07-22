@@ -49,7 +49,7 @@
 				<tbody>
 					{% for i in enquiry_no %}
 					<tr>
-						<td>{{i.id}}</td>
+						<td>{{ forloop.counter }}</td>
 						<td>{{i.enq_no}}</td>
 						<td><a href="{%url 'Admin_panel_enquiry_no_Update' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_enquiry_no_Delete' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
 					</tr>

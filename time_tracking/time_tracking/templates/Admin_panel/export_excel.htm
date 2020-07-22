@@ -21,65 +21,76 @@
 <div class="row">
 	<div class="col">
 		<div class="card card-body">
-			<form method="GET" action="#" class="form-inline my-2 my-lg-10">
-                {{form.form.as_p}}
-               <button class="btn btn-primary" type="submit">Search</button>
-			</form>
+			<form method="GET" action="#" class="form-inline my-3 my-lg-10">
+        <div class="form-label-group">
+          <label for="{{form.username.id_for_label}}">Employee Username &nbsp;:&nbsp;</label>
+          {{form.form.username}}
         </div>
+        <div class="form-label-group">
+          <label for="{{form.department.id_for_label}}">Department &nbsp;:&nbsp;</label>
+          {{form.form.department}}
+        </div>
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
 	</div>
 </div>
 <br>
 
-<button class="btn  my-2 my-sm-0" value="Export"  style="color: white;"  id="btn" type="button">Export Excel</button>
 
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-            <table id="table" class="table table-hover table-sm table-dark">
-                <thead>
-                  <tr>
-                    {% csrf_token %}
-                    <th scope="col">Department:</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Project Enq</th>
-                    <th scope="col">Enq_no</th>
-                    <th scope="col">Name_of_project</th>
-                    <th scope="col">Activity</th>
-                    <th scope="col">Hour</th>
-                    <th scope="col">Submit Date</th>
-                    <th scope="col">Start time</th>
-                    <th scope="col">End time</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for userdata in form.qs  %}
-                  <tr>
-                    <td>{{userdata.department}}</td>
-                    <td>{{userdata.location}}</td>
-                    <td>{{userdata.projectEnq}}</td>
-                    <td>{{userdata.enq_no}}</td>
-                    <td>{{userdata.name_of_project}}</td>
-                    <td>{{userdata.activity}}</td>
-                    <td>{{userdata.hours}}</td>
-                    <td>{{userdata.submit_data}}</td>
-                    <td>{{userdata.start_time}}</td>
-                    <td>{{userdata.end_time}}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-		</div>
-	</div>
+      <table id="table" class="table table-hover table-sm table-dark">
+        <thead>
+          <tr>
+            {% csrf_token %}
+            <th scope="col">Sr.No.</th>
+            <th scope="col">Department:</th>
+            <th scope="col">Location</th>
+            <th scope="col">Project Enq</th>
+            <th scope="col">Enq_no</th>
+            <th scope="col">Name_of_project</th>
+            <th scope="col">Activity</th>
+            <th scope="col">Hour</th>
+            <th scope="col">Submit Date</th>
+            <th scope="col">Start time</th>
+            <th scope="col">End time</th>
+            <th scope="col"><button class="btn  my-2 my-sm-0" value="Export"  style="color: white;"  id="btn" type="button">Export Excel</button></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for userdata in form.qs  %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{userdata.department}}</td>
+            <td>{{userdata.location}}</td>
+            <td>{{userdata.projectEnq}}</td>
+            <td>{{userdata.enq_no}}</td>
+            <td>{{userdata.name_of_project}}</td>
+            <td>{{userdata.activity}}</td>
+            <td>{{userdata.hours}}</td>
+            <td>{{userdata.submit_data}}</td>
+            <td>{{userdata.start_time}}</td>
+            <td>{{userdata.end_time}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="/static/Jquery/jquery-3.4.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="/static/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>   
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha256-KM512VNnjElC30ehFwehXjx1YCHPiQkOPmqnrWtpccM=" crossorigin="anonymous"></script>
+<script src="/static/Jquery/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+<script src="https://rawgit.com/unconditional/jquery-table2excel/master/src/jquery.table2excel.js"></script>
+<script src="/static/Jquery/jquery.table2excel.js"></script>
 <script>
-	$("#form-data").click(function(){
-        $("#form-data1").toggle();
-    });
-
-    $(document).ready(function(){
+  
+$(document).ready(function(){
   $("#btn").on('click',function(e){
     $("table").table2excel({
       name: "Emp_data",
@@ -87,13 +98,5 @@
     });
   });
 });
-</script>
-
-
-	
-</body>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</html>
-{% endblock %}
+</script>{% endblock %}
+        

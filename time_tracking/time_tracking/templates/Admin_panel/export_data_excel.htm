@@ -20,7 +20,7 @@
         <div class="col">
             <div class="card card-body">
                 <form method="GET" action="" class="form-inline my-2 my-lg-10">
-                    {{ filter.form.as_q}}
+                    {{ filter.form|as_crispy_field s}}
                     <button class="btn btn-primary" type="submit">Search</button>
                 </form>
             </div>

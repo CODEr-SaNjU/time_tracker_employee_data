@@ -56,6 +56,7 @@
 				<thead>
 					<tr>
 						{% csrf_token %}
+						<th scope="col">Sr Number</th>
 						<th scope="col">Employee Username</th>
 						<th scope="col">Department</th>
 						<th scope="col">Activity</th>
@@ -74,6 +75,7 @@
 					{% if employee_data %}
 						{% for i in employee_data %}
 						<tr>
+                            <td>{{ forloop.counter }}</td>
 							<td>{{i.username}}</td>
 							<td>{{i.department}}</td>
 							<td>{{i.activity}}</td>
