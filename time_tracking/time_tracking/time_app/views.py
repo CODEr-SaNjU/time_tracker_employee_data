@@ -17,8 +17,11 @@ from .decorators import unauthenticated_user ,allowed_user
 from django.db.models import F ,Q
 import datetime
 from django.contrib.auth.forms import UserCreationForm
-
+from django.core.paginator import PageNotAnInteger,EmptyPage,Paginator
 from .filters import UserDataFilter
+
+
+
 
 @unauthenticated_user
 def login(request):
@@ -195,9 +198,16 @@ def Admin_panel(request):
 @login_required(login_url="login")
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Reg(request):    
-    Employee = User.objects.all()
-    conext = {'Employee':Employee}
-    return render(request,'Admin_panel/Employee_registrion.htm',conext)
+    Employee_list = User.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(Employee_list,10)
+    try:
+        Employee = paginator.page(page)
+    except PageNotAnInteger:
+        Employee=paginator.page(1)
+    except EmptyPage:
+        Employee = paginator.page(paginator.num_pages)
+    return render(request,'Admin_panel/Employee_registrion.htm',{'Employee':Employee})
 
 
 @login_required(login_url="login")
@@ -222,7 +232,15 @@ def Admin_panel_User_Add(request):
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Data(request):
     employee_data = UserData.objects.all()
-    return render(request,'Admin_panel/Employee_data.htm',{"employee_data":employee_data})
+    page = request.GET.get('page',1)
+    paginator = Paginator(employee_data,1)
+    try:
+        userdatas = paginator.page(page)
+    except PageNotAnInteger:
+        userdatas=paginator.page(1)
+    except EmptyPage:
+        userdatas = paginator.page(paginator.num_pages)
+    return render(request,'Admin_panel/Employee_data.htm',{"userdatas":userdatas})
 
 
 
@@ -266,7 +284,15 @@ def Admin_panel_data_search(request):
 @login_required(login_url="login")
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_Activity(request):
-    activity = Activity.objects.all()
+    activity_list = Activity.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(activity_list,10)
+    try:
+        activity = paginator.page(page)
+    except PageNotAnInteger:
+        activity=paginator.page(1)
+    except EmptyPage:
+        activity = paginator.page(paginator.num_pages)
     return render(request,'Admin_panel/activity.htm',{"activity":activity})
 
 
@@ -322,7 +348,15 @@ def Admin_panel_Activity_Update(request,pk_id):
 @login_required(login_url="login")
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_deprtmnt(request):
-    deprmnt = Department.objects.all()
+    deprmnt_list = Department.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(deprmnt_list,10)
+    try:
+        deprmnt = paginator.page(page)
+    except PageNotAnInteger:
+        deprmnt=paginator.page(1)
+    except EmptyPage:
+        deprmnt = paginator.page(paginator.num_pages)
     return render(request,'Admin_panel/deprtmnt.htm',{"deprmnt":deprmnt})
 
 
@@ -371,7 +405,15 @@ def Admin_panel_deprtmnt_Delete(request,pk):
 @login_required(login_url="login")
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_enquiry_no(request):
-    enquiry_no = Enq_No.objects.all()
+    enquiry_no_list = Enq_No.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(enquiry_no_list,10)
+    try:
+        enquiry_no = paginator.page(page)
+    except PageNotAnInteger:
+        enquiry_no=paginator.page(1)
+    except EmptyPage:
+        enquiry_no = paginator.page(paginator.num_pages)
     return render(request,'Admin_panel/enquiry_no.htm',{"enquiry_no":enquiry_no})
 
 
@@ -431,7 +473,15 @@ def Admin_panel_enquiry_no_Add(request):
 @login_required(login_url="login")
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_loction(request):
-    loction = Location.objects.all()
+    loction_list = Location.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(loction_list,5)
+    try:
+        loction = paginator.page(page)
+    except PageNotAnInteger:
+        loction=paginator.page(1)
+    except EmptyPage:
+        loction = paginator.page(paginator.num_pages) 
     return render(request,'Admin_panel/loction.htm',{"loction":loction})
 
 
@@ -482,7 +532,15 @@ def Admin_panel_loction_Update(request,pk_id):
 @login_required(login_url="login")
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_project_enq(request):
-    project_enq = Project_Enq.objects.all()
+    project_enq_list = Project_Enq.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(project_enq_list,10)
+    try:
+        project_enq = paginator.page(page)
+    except PageNotAnInteger:
+        project_enq=paginator.page(1)
+    except EmptyPage:
+        project_enq = paginator.page(paginator.num_pages)
     return render(request,'Admin_panel/projct_enq.htm',{"project_enq":project_enq})
 
 
@@ -530,7 +588,15 @@ def Admin_panel_project_enq_Add(request):
     return redirect('Admin_panel_project_enq')
 
 def Admin_panel_name_of_project(request):
-    name_of_project = Name_of_Project.objects.all()
+    name_of_project_list = Name_of_Project.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(name_of_project_list,10)
+    try:
+        name_of_project = paginator.page(page)
+    except PageNotAnInteger:
+        name_of_project=paginator.page(1)
+    except EmptyPage:
+        name_of_project = paginator.page(paginator.num_pages)
     return render(request,'Admin_panel/name_of_project.htm',{"name_of_project":name_of_project})
 
 def Admin_panel_name_of_project_Add(request):
@@ -587,6 +653,14 @@ def Admin_panel_name_of_project_Search(request):
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_employee_data(request):
     employee_data = UserData.objects.all()
+    page = request.GET.get('page',1)
+    paginator = Paginator(activity_list,10)
+    try:
+        activity = paginator.page(page)
+    except PageNotAnInteger:
+        activity=paginator.page(1)
+    except EmptyPage:
+        activity = paginator.page(paginator.num_pages)
     return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
 
 

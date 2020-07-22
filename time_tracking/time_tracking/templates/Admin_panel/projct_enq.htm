@@ -96,6 +96,27 @@
             </div>
         </div>
     </div>
+{% if project_enq.has_other_pages %}
+    <ul class="pagination">
+        {% if project_enq.has_previous %}
+          <li><a href="?page={{ project_enq.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in project_enq.paginator.page_range %}
+          {% if project_enq.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if project_enq.has_next %}
+          <li><a href="?page={{ project_enq.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+    </ul>
+{% endif %}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>   
@@ -105,7 +126,7 @@
         });
     </script>
     {% endblock %}
-    </div>
+
 
 	
 </body>

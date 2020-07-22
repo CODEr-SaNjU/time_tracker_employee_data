@@ -72,8 +72,8 @@
 					</tr>
 				</thead>
 				<tbody>	
-					{% if employee_data %}
-						{% for i in employee_data %}
+					{% if userdatas %}
+						{% for i in userdatas %}
 						<tr>
                             <td>{{ forloop.counter }}</td>
 							<td>{{i.username}}</td>
@@ -98,7 +98,27 @@
 		</div>
 	</div>
 </div>
-
+{% if userdatas.has_other_pages %}
+<ul class="pagination">
+    {% if userdatas.has_previous %}
+      <li><a href="?page={{ userdatas.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in userdatas.paginator.page_range %}
+      {% if userdatas.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if userdatas.has_next %}
+      <li><a href="?page={{ userdatas.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+	{% endif %}
+</ul>
+{% endif %}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="/static/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>   

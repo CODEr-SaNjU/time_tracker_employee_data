@@ -5,6 +5,7 @@
   <thead>
     <tr>
       {% csrf_token %}
+      <th scope="col">Sr.No</th>
       <th scope="col">Department:</th>
       <th scope="col">Location</th>
       <th scope="col">Project Enq</th>
@@ -21,6 +22,7 @@
   <tbody>
     {% for userdata in userdata  %}
     <tr>
+      <td>{{forloop.counter}}</td>
       <td>{{userdata.department}}</td>
       <td>{{userdata.location}}</td>
       <td>{{userdata.projectEnq}}</td>
@@ -36,6 +38,28 @@
     {% endfor %}
   </tbody>
 </table>
+<!-- {% if userdatas.has_other_pages %}
+  <ul class="pagination">
+    {% if userdatas.has_previous %}
+      <li><a href="?page={{ userdatas.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in userdatas.paginator.page_range %}
+      {% if userdatas.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if userdatas.has_next %}
+      <li><a href="?page={{ userdatas.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %} -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
 <script src="/static/Jquery/jquery-3.4.1.slim.js"></script>
 <script src="/static/Jquery/jquery-3.4.1.min.js"></script>
