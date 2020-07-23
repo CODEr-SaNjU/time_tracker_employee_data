@@ -189,10 +189,10 @@ def Admin_panel(request):
     total_employee_data = employee_data.count()
     user = User.objects.all()
     total_user = user.count()
-    # total_super_user = user.is_superuser.count()
+    superusers_count = User.objects.filter(is_superuser=True).count
     last_five = UserData.objects.filter().order_by('-id')[:5]
     last_five_in_ascending_order = reversed(last_five)
-    return render(request,'Admin_panel/inbox.htm',{"employee_data":employee_data,'total_user':total_user,'total_employee_data':total_employee_data,'last_five':last_five})
+    return render(request,'Admin_panel/inbox.htm',{"employee_data":employee_data,'total_user':total_user,'total_employee_data':total_employee_data,'last_five':last_five,'superusers_count':superusers_count})
 
 
 @login_required(login_url="login")
@@ -218,10 +218,10 @@ def Admin_panel_User_Add(request):
         form = UserCreateForm(request.POST)
         if form.is_valid():
             user = form.save()
-            username = form.cleaned_data.get('username')
+            first_name = form.cleaned_data.get('first_name')
             group = Group.objects.get(name='Employee')
             user.groups.add(group)
-            messages.success(request,'User is created successfully',+username)
+            messages.success(request,'registration has been successfully completed '+first_name)
             return redirect('User_registrion')
 
     context = {'form':form}
@@ -258,7 +258,14 @@ def Admin_panel_user_update_data(request,pk_id):
     Employee = get_object_or_404(User,id=pk_id)
     form = UserForm(request.POST or None, instance=Employee)
     if form.is_valid():
-        form.save()
+        user = form.save()
+        is_superuser = form.cleaned_data.get('is_superuser')
+        print(is_superuser)
+        if is_superuser == True:
+            group = Group.objects.get(name='Admin')
+            group1 = Group.objects.get(name='Employee')
+            user.groups.add(group)
+            user.groups.remove(group1)
         return redirect('User_registrion')
     return render(request,'Admin_panel/update_user.htm',{'form':form})
 
