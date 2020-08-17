@@ -5,7 +5,7 @@
 
 body {
   background: #eff3f7;
-  background: linear-gradient(to right, #3e3c3c, #3e3c3c);
+  background: linear-gradient(to right, #ffffff, #ffffff);
 }
 
 .card-signin {
@@ -64,7 +64,7 @@ body {
   margin-bottom: 0;
   /* Override default `<label>` margin */
   line-height: 1.5;
-  color: #495057;
+  color: #faf8f4;
   border: 1px solid transparent;
   border-radius: .25rem;
   transition: all .1s ease-in-out;
