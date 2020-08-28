@@ -89,9 +89,13 @@ WSGI_APPLICATION = 'time_tracking.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'Vertibld_database',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Timetracker',
+        'USER': 'timetracker',
+        'PASSWORD': 'timetracker@123',
+        'HOST': '52.247.212.104',
+        'PORT': '5432'
+    },
 }
 
 
