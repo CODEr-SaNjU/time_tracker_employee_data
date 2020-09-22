@@ -659,7 +659,7 @@ def Admin_panel_name_of_project_Search(request):
 @login_required(login_url="login")
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_employee_data(request):
-    employee_data = UserData.objects.all()
+    activity_list = UserData.objects.all()
     page = request.GET.get('page',1)
     paginator = Paginator(activity_list,10)
     try:
@@ -668,7 +668,7 @@ def Admin_panel_employee_data(request):
         activity=paginator.page(1)
     except EmptyPage:
         activity = paginator.page(paginator.num_pages)
-    return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
+    return render(request,'Admin_panel/employee_view_data.htm',{"activity":activity})
 
 
 
