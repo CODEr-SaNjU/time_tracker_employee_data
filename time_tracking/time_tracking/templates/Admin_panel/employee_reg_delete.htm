@@ -6,6 +6,11 @@
 {% block content %}
 <br>
 <br>
+<br>
+<div align="left">
+	<button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; &nbsp;Back</button>
+</div>
+<br>
 <h1 style="text-align: center;"> User Delete</h1>
 <form method="POST">{% csrf_token %}
     <h1 style="text-align: center; color: black;">Are you sure you want to delete User </h1> <h3 style="color: red; text-align: center;">"{{ Employee }}" ?</h5>

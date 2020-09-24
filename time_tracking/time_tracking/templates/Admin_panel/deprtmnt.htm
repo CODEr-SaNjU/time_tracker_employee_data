@@ -19,6 +19,11 @@
 	<div align="right">
 		<button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Department</button>
 	</div>
+	<br>
+	<div align="left">
+		<button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; &nbsp;Back</button>
+	</div>
+	<br>
 	<div class="row">
 		<div class="col">
 			<div class="modal-body form_container">
@@ -104,7 +109,11 @@
       <li><a href="?page={{ deprmnt.previous_page_number }}">&laquo;</a></li>
     {% else %}
       <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
+	  <br>
+	  <div align="left">
+		  <button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; &nbsp;Back</button>
+	  </div>
+	  <br>  {% endif %}
     {% for i in deprmnt.paginator.page_range %}
       {% if deprmnt.number == i %}
         <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
