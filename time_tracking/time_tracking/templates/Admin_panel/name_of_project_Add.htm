@@ -8,9 +8,13 @@
 <br>
 <br>
 <div align="left">
-	<button type="button" class="btn btn-outline-info"> <a href="{% url 'Admin_panel_name_of_project' %}"> <i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; &nbsp;Back</button></a>
+	<a href="{% url 'Admin_panel_name_of_project' %}"><button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; &nbsp;Back</button></a>
 </div>
 <br>
+<div align="right">
+  <a href="{%url 'Admin_panel_project_enq' %}"><button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Project Enquiry</button></a>
+  <a href="{%url 'Admin_panel_enquiry_no_Add' %}"><button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Enquiry Number</button></a>
+</div>
 <div class="row">
   <div class="col">
     <div class="modal-body form_container">

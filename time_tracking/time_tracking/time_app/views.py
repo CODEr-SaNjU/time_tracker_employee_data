@@ -673,12 +673,12 @@ def Admin_panel_employee_data(request):
 
 
 
-@login_required(login_url="login")
-@allowed_user(allowed_roles=['Admin'])
-def Admin_panel_employee_data_search(request):
-    search = request.GET['search']
-    employee_data = UserData.objects.filter(activity__activity=search)
-    return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
+# @login_required(login_url="login")
+# @allowed_user(allowed_roles=['Admin'])
+# def Admin_panel_employee_data_search(request):
+#     search = request.GET['search']
+#     employee_data = UserData.objects.filter(activity__activity=search)
+#     return render(request,'Admin_panel/employee_view_data.htm',{"employee_data":employee_data})
 
 
 

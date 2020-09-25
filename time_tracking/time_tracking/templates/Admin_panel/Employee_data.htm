@@ -12,7 +12,7 @@
 <br>
 <br>
 <div align="left">
-	<button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"><a href="{% url 'Admin_panel' %}"></i>&nbsp; &nbsp;Back</button></a>
+	<a href="{% url 'Admin_panel' %}"><button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; &nbsp;Back</button></a>
 </div>
 <br>
 <div class="wrapper" style="display: grid;grid-template-columns: repeat(8,1fr);grid-auto-rows: minmax(100%,auto);grid-gap: 1em;">
@@ -34,9 +34,9 @@
 	<div>
 		<a href="{%url 'Admin_panel_loction'%}"><button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Location</button></a>
 	</div>
-	<div>
+	<!-- <div>
 		<a href="{%url 'Admin_panel_employee_data' %}"><button class="btn btn-outline-info" id="form-data"  type="button"><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;Add Employee Data</button></a>	
-	</div>
+	</div> -->
 	<div>
 		<a href="{% url 'Admin_panel_export_excel' %}"><button class="btn btn-outline-info" id="emp-data"  type="button"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Export Excel</button></a>	
 	</div>
