@@ -8,7 +8,7 @@
 <br>
 <br>
 <div align="left">
-  <button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"><a href="{% url 'Admin_panel_Activity' %}"></i>&nbsp; &nbsp;Back</button></a>
+  <a href="{% url 'Admin_panel_Activity' %}"><button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; &nbsp;Back</button></a>
 </div>
 <br>
 <div class="row">
@@ -19,7 +19,7 @@
         <div class="col">
         </div>
         <div class="col-6">
-            <form action="/Admin_panel/employee_data/deprtmnt/Add/" method="POST" id="form-data1" class="form-signin">
+            <form action="/Admin_panel/employee_data/Activity/Add/" method="POST" id="form-data1" class="form-signin">
               {% csrf_token %}
               <div class="card card-body">
                 <h5 style="text-align: center;">Add Activity</h5>
