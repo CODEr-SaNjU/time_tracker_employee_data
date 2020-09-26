@@ -221,7 +221,6 @@ def Admin_panel_User_Add(request):
             first_name = form.cleaned_data.get('first_name')
             group = Group.objects.get(name='Employee')
             user.groups.add(group)
-            messages.success(request,'registration has been successfully completed '+first_name)
             return redirect('User_registrion')
 
     context = {'form':form}

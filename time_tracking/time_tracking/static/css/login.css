@@ -64,7 +64,7 @@ body {
   margin-bottom: 0;
   /* Override default `<label>` margin */
   line-height: 1.5;
-  color: #faf8f4;
+  color: #6b6a69;
   border: 1px solid transparent;
   border-radius: .25rem;
   transition: all .1s ease-in-out;
@@ -107,7 +107,7 @@ body {
   padding-top: calc(var(--input-padding-y) / 3);
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
-  color: #777;
+  color: rgb(71, 68, 68);
 }
 
 .btn-google {

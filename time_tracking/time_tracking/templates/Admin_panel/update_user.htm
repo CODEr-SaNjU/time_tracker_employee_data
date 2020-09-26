@@ -6,6 +6,9 @@
 {% block content %}
 <br>
 <br>
+<div align="left">
+  <a href="{% url 'User_registrion' %}"><button type="button" class="btn btn-outline-info"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; &nbsp;Back</button></a>
+</div>
 <div class="row">
 	<div class="col">
         <div class="modal-body form_container">
@@ -44,14 +47,14 @@
                     <label class="form-check-label" for="inlineCheckbox3">Super User</label>
                 </div> -->
                 <br>
-                {% if messages %}
+                <!-- {% if messages %}
                 <div class="messages">
                     {% for message in messages %}
                     <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>
                         <div class="alert alert-danger" role="alert">&nbsp;{{ message }}</div></div>
                         {% endfor %}
                     </div>
-                    {% endif %}
+                    {% endif %} -->
                     <div class="mt-4">
                     </div>
                     <button class="btn btn-lg btn-block text-uppercase" style="background-color: #3e3c3c;" type="submit">submit</button>
