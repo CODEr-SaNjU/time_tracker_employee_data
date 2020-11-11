@@ -1,23 +1,19 @@
 [[source]]
-name = "pypi"
-url = "https://pypi.org/simple"
+url = "https://pypi.python.org/simple"
 verify_ssl = true
-
-[dev-packages]
+name = "pypi"
 
 [packages]
 django = "*"
-psycopg2-binary = "*"
+psycopg2 = "*"
 django-crispy-forms = "*"
 django-cors-headers = "*"
 django-allauth = "*"
-pylint = "*"
-pylint-django = "*"
-xlwt = "*"
-rest-auth = "*"
-crispy-forms = "*"
 djangorestframework = "*"
 django-filter = "*"
+django-rest-auth = "*"
+
+[dev-packages]
 
 [requires]
 python_version = "3.8"
