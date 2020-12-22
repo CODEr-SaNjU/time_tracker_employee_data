@@ -29,6 +29,7 @@ def login(request):
         email = request.POST['email']
         password = request.POST['password']
         user = auth.authenticate(username=email,password=password)
+        print(user)
         if user is not None:
             auth.login(request,user)
             return redirect('dashboard')
@@ -246,9 +247,12 @@ def Admin_panel_Data(request):
 @login_required(login_url="login")
 @allowed_user(allowed_roles=['Admin'])
 def Admin_panel_reg_search(request):
-    search = request.GET['search',False]
-    Employee = User.objects.filter(username__icontains=search)
-    return render(request,'Admin_panel/Employee_registrion.htm',{"Employee":Employee})
+    try:
+        search = request.GET['search',False]
+        Employee = User.objects.filter(username__icontains=search)
+        return render(request,'Admin_panel/Employee_registrion.htm',{"Employee":Employee})
+    except:
+        return redirect('Admin_panel')
 
 
 @login_required(login_url="login")
