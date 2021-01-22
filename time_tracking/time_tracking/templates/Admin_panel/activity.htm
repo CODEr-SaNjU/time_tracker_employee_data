@@ -58,6 +58,10 @@
                             <td>{{i.activity}}</td>
                             <td><a href="{%url 'Admin_panel_Activity_Update' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_Activity_Delete' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
                         </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="12" class="text-center text-warning bg-danger">No ACTIVITY Found</td>
+                        </tr>
                         {% endfor %}
                     </tbody>
                 </table>

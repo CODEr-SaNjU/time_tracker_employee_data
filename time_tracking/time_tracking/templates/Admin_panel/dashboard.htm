@@ -37,10 +37,14 @@
 					<td>{{i.projectEnq}}</td>
 					<td>{{i.enq_no}}</td>
 					<td>{{i.name_of_project}}</td>
+					<td>{{i.submit_data}}</td>
 					<td>{{i.start_time}}</td>
 					<td>{{i.end_time}}</td>
-					<td>{{i.submit_data}}</td>
 					<td>{{i.hours}}</td>
+				</tr>
+				{% empty %}
+				<tr>
+					<td colspan="12" class="text-center text-warning bg-danger">No Enquiry Found</td>
 				</tr>
 				{% endfor %}
 			</table>

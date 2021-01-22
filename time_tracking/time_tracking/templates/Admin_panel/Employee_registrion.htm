@@ -53,11 +53,11 @@
 							<td>{{i.date_joined}}</td>
 							<td>{{i.is_superuser}}</td>
 							<td><a href="{%url 'Admin_panel_user_update_data' i.id %}"><button type="button" class="btn btn-info btn-sm">&nbsp;&nbsp;Edit</button></a> &nbsp;&nbsp;<a href="{%url 'Admin_panel_user_delete_data' i.id %}"><button type="button" class="btn btn-danger btn-sm">&nbsp;&nbsp;Delete</button></a></td>
-                        {% endfor %}
-                    {% else %}
-                            <td><h1 style="color: red;">No data found</h1></td>
-                        </tr>
-                    {% endif %}
+							{% empty %}
+							<tr>
+								<td colspan="12" class="text-center text-warning bg-danger">No Enquiry Found</td>
+							</tr>
+						{% endfor %}
 				</tbody>
 			</table>
 		</div>

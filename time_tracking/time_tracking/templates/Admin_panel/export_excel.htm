@@ -79,6 +79,10 @@
             <td>{{userdata.start_time}}</td>
             <td>{{userdata.end_time}}</td>
           </tr>
+          {% empaty %}
+          <tr>
+            <td colspan="12" class="text-center text-warning bg-danger">No Enquiry Found</td>
+          </tr>
           {% endfor %}
         </tbody>
       </table>
